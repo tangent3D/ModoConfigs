@@ -1,4 +1,4 @@
-# Restart MODO if these don't work because I believe they are preserved in the session!!!
+# Values are obtained from Event Viewer after running initialize_project.py
 
 # Mesh_LO
 MESH_LO = "mesh022"
