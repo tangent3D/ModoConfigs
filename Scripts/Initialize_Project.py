@@ -81,7 +81,7 @@ lx.eval('item.name Curvature occlusion')
 lx.eval('item.channel occlusion$type curvature')
 lx.eval('item.channel occlusion$rays 1')
 lx.eval('item.channel occlusion$dist 0.1')
-lx.eval('item.channel occlusion$sameSurf true')
+#lx.eval('item.channel occlusion$sameSurf true')
 TEX_Curvature = lx.eval("query sceneservice selection ? all")
 
 # Create Texture Layer Wireframe Texture
