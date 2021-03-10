@@ -27,6 +27,8 @@ lx.eval('select.subItem ' + MESH_HI + ' remove')
 MAT_RoundEdge = lx.eval1("query sceneservice selection ? all")
 lx.eval('item.channel advancedMaterial$rndWidth 0.01')
 lx.eval('item.channel advancedMaterial$rndSame true')
+lx.eval('select.subItem ' + MAT_RoundEdge + ' remove')
+MASK_MAT_RoundEdge = lx.eval1("query sceneservice selection ? all")
 
 ### Cleaning up the default scene ###
 
@@ -322,6 +324,14 @@ lx.eval('select.drop item')
 lx.eval('shader.setVisible '+ IMG_Normal +' false')
 lx.eval('shader.setVisible '+ IMG_Displacement +' false')
 
+# Delete MESH_HI UV Map
+lx.eval('dialog.result ok')
+lx.eval('vertMap.delete txuv')
+
+# Set render frame to 1:1 ratio
+lx.eval('render.res 0 1024')
+lx.eval('render.res 1 1024')
+
 # Print debug text (for use in definitions.py)
 lx.out('Mesh_LO:',MESH_LO)
 lx.out('Mesh_HI:',MESH_HI)
@@ -340,6 +350,7 @@ lx.out('Surface ID Bake Item:',BAKE_RO_ID)
 lx.out('TS Normals Texture Bake Item:',BAKE_TEX_Normal)
 lx.out('Displacement Texture Bake Item:',BAKE_TEX_Displacement)
 lx.out('RoundEdge Material:',MAT_RoundEdge)
+lx.out('RoundEdge Material Mask:',MASK_MAT_RoundEdge)
 lx.out('Mesh_LO Material:',MAT_LO)
 lx.out('Mesh_LO Material Mask:',MASK_MAT_LO)
 lx.out('Displacement Image:',IMG_Displacement)

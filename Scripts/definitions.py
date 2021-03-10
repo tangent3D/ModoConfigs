@@ -1,4 +1,5 @@
 # Values are obtained from Event Viewer after running initialize_project.py
+# Restart Modo for changes to take effect
 
 # Mesh_LO
 MESH_LO = "mesh022"
@@ -34,9 +35,11 @@ BAKE_TEX_Normal = "bakeItemTexture046"
 BAKE_TEX_Displacement = "bakeItemTexture047"
 #RoundEdge Material
 MAT_RoundEdge = "advancedMaterial025"
+#RoundEdge Material Mask
+MASK_MAT_RoundEdge = "mask024"
 #Mesh_LO Material
 MAT_LO = "advancedMaterial040"
-#Mesh_LO Material
+#Mesh_LO Material Mask
 MASK_MAT_LO = "mask039"
 #Displacement Image
 IMG_Displacement = "imageMap053"
