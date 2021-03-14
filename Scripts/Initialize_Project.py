@@ -22,9 +22,12 @@ MESH_HI = lx.eval("query sceneservice selection ? locator")
 ### Create RoundEdge material and assign to MESH_HI
 lx.eval('select.drop item')
 lx.eval('select.subItem ' + MESH_HI + '')
-lx.eval('poly.setMaterial RoundEdge {0.6 0.6 0.6} 0.8 0.04 true false')
+lx.eval('poly.setMaterial RoundEdge {0.8 0.8 0.8} 1.0 0.04 true false')
 lx.eval('select.subItem ' + MESH_HI + ' remove')
 MAT_RoundEdge = lx.eval1("query sceneservice selection ? all")
+# Define RoundEdge material properties
+lx.eval('item.channel advancedMaterial$smAngle 25.0')
+lx.eval('item.channel advancedMaterial$rndAngle 25.0')
 lx.eval('item.channel advancedMaterial$rndWidth 0.01')
 lx.eval('item.channel advancedMaterial$rndSame true')
 lx.eval('select.subItem ' + MAT_RoundEdge + ' remove')
@@ -103,6 +106,8 @@ lx.eval('select.subItem ' + MESH_LO + '')
 lx.eval('poly.setMaterial Mesh {1.0 1.0 1.0} 1.0 0.04 true false false')
 lx.eval('select.subItem ' + MESH_LO + ' remove')
 MAT_LO = lx.eval1("query sceneservice selection ? all")
+# Set smoothing angle to 25 degrees
+lx.eval('item.channel advancedMaterial$smAngle 25.0')
 lx.eval('select.subItem ' + MAT_LO + ' remove')
 MASK_MAT_LO = lx.eval1("query sceneservice selection ? all")
 
