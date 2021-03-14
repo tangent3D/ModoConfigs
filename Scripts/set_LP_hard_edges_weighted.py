@@ -6,8 +6,8 @@ lx.eval('select.subItem '+ MAT_LO +'')
 lx.eval('material.smoothCrease false')
 lx.eval('material.smoothCrease hardedges:true')
 
-# Disable area weighting
-lx.eval('material.smoothWeight area false')
+# Set area weighting
+lx.eval('material.smoothWeight area true')
 
 lx.eval('select.subItem '+ MESH_LO +'')
 lx.eval('select.vertexMap Texture txuv replace')

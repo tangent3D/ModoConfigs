@@ -2,6 +2,11 @@
 
 from definitions import *
 
+# Assign LP material to selected items
+lx.eval('select.subItem '+MESH_LO+'')
+name = lx.eval('item.name ?')
+lx.eval('poly.setMaterial '+name+' {1.0 1.0 1.0} 1.0 0.04 true false')
+
 lx.eval('select.subitem ' + BAKE_TEX_Normal + ' remove')
 lx.eval('select.subitem ' + BAKE_TEX_Displacement + ' remove')
 

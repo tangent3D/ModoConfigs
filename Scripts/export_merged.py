@@ -8,6 +8,7 @@ from definitions import *
 lx.eval('select.drop item')
 lx.eval('select.subItem ' + MESH_LO + ' add')
 lx.eval('select.itemHierarchy')
+lx.eval('vertMap.normals "Vertex Normal" true 1.0 {} false')
 lx.eval('item.duplicate false locator false true')
 lx.eval('layer.mergeMeshes true')
 mergedMesh = lx.eval("query sceneservice selection ? locator")

@@ -2,6 +2,9 @@
 
 from definitions import *
 
+# Assign RoundEdge material to selected items
+lx.eval('poly.setMaterial RoundEdge {0.8 0.8 0.8} 1.0 0.04 true false false')
+
 lx.eval('select.subitem ' + BAKE_TEX_Normal + ' remove')
 lx.eval('select.subitem ' + BAKE_TEX_Displacement + ' remove')
 

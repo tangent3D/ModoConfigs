@@ -2,15 +2,14 @@
 
 from definitions import *
 
-lx.eval('select.subItem '+ MAT_LO +'')
-lx.eval('material.smoothCrease false')
-lx.eval('material.smoothCrease hardedges:true')
-
+lx.eval('select.drop item')
 lx.eval('shader.setVisible '+ TEX_Curvature +' false')
 lx.eval('select.subItem '+ BAKE_TEX_Normal +' set')
 lx.eval('bakeItem.bake true')
 lx.eval('shader.setVisible '+ TEX_Curvature +' true')
 lx.eval('select.drop item')
+
+lx.eval('shader.setVisible '+IMG_Normal+' true')
 
 # Reload the normal map image to update it in the viewport
 lx.eval('select.subItem '+MESH_LO+'')

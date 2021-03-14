@@ -6,7 +6,7 @@ lx.eval('shader.setVisible '+ TEX_Curvature +' false')
 
 lx.eval('select.drop item')
 
-lx.eval('select.subItem '+ BAKE_RO_AO +' set')
+lx.eval('select.subItem '+ BAKE_RO_Alpha +' set')
 
 lx.eval('pref.value render.bakeBorder 0')
 lx.eval('bakeItem.bake true')

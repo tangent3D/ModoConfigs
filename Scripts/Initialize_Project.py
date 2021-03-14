@@ -213,7 +213,6 @@ lx.eval('shader.setVisible ' + RO_ID + ' false')
 lx.eval('shader.setVisible ' + RO_AO + ' false')
 lx.eval('shader.setVisible ' + RO_ShadingNormal + ' false')
 lx.eval('shader.setVisible ' + RO_Alpha + ' false')
-lx.eval('layer.setVisibility ' + MESH_LO + ' false')
 
 ### Project organization ###
 
@@ -336,6 +335,10 @@ lx.eval('vertMap.delete txuv')
 # Set render frame to 1:1 ratio
 lx.eval('render.res 0 1024')
 lx.eval('render.res 1 1024')
+
+# Make MESH_HI the only item visible in the scene
+lx.eval('select.subItem '+MESH_HI+'')
+lx.eval('hide.unsel')
 
 # Print debug text (for use in definitions.py)
 lx.out('Mesh_LO:',MESH_LO)
