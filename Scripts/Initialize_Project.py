@@ -336,8 +336,12 @@ lx.eval('vertMap.delete txuv')
 lx.eval('render.res 0 1024')
 lx.eval('render.res 1 1024')
 
+lx.eval('select.subItem '+MESH_LO+'')
+lx.eval('item.channel locator$lock on')
+
 # Make MESH_HI the only item visible in the scene
 lx.eval('select.subItem '+MESH_HI+'')
+lx.eval('item.channel locator$lock on')
 lx.eval('hide.unsel')
 
 # Print debug text (for use in definitions.py)
