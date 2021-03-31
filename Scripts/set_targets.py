@@ -2,9 +2,11 @@
 
 from definitions import *
 
-# Assign LP material to selected items
+# Assign LP material to LP mesh and all children
+lx.eval('select.drop item')
 lx.eval('select.subItem '+MESH_LO+'')
 name = lx.eval('item.name ?')
+lx.eval('select.itemHierarchy')
 lx.eval('poly.setMaterial '+name+' {1.0 1.0 1.0} 1.0 0.04 true false')
 
 lx.eval('select.subitem ' + BAKE_TEX_Normal + ' remove')

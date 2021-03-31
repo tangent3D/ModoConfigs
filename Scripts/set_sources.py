@@ -2,7 +2,10 @@
 
 from definitions import *
 
-# Assign RoundEdge material to selected items
+# Assign RoundEdge material to HP mesh and all children
+lx.eval('select.drop item')
+lx.eval('select.subItem '+Mesh_HI+'')
+lx.eval('select.itemHierarchy')
 lx.eval('poly.setMaterial RoundEdge {0.8 0.8 0.8} 1.0 0.04 true false false')
 
 lx.eval('select.subitem ' + BAKE_TEX_Normal + ' remove')
