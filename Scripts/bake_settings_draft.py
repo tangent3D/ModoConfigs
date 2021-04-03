@@ -15,7 +15,7 @@ lx.eval('select.subItem ' + BAKE_RO_Alpha + '')
 lx.eval('select.subItem ' + BAKE_RO_AO + '')
 lx.eval('select.subItem ' + BAKE_RO_ID + '')
 
-lx.eval('item.channel bakeItemRO$width 512')
-lx.eval('item.channel bakeItemRO$height 512')
+lx.eval('item.channel bakeItemRO$width 1024')
+lx.eval('item.channel bakeItemRO$height 1024')
 
 lx.eval('select.drop item')
