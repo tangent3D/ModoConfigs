@@ -17,3 +17,5 @@ name = lx.eval('item.name ?')
 lx.eval('select.subItem {'+name+'_Normal_Base:videoStill001} set mediaClip')
 lx.eval('clip.reload')
 lx.eval('select.drop item')
+
+lx.eval('@show_LO.py')
