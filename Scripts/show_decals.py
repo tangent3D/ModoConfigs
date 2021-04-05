@@ -15,4 +15,4 @@ lx.eval('hide.sel')
 lx.eval('select.drop item')
 
 lx.eval('select.subItem '+MESH_Decals+'')
-lx.eval('select.drop item')
+# lx.eval('select.drop item')

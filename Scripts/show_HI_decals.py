@@ -14,5 +14,5 @@ lx.eval('select.itemHierarchy')
 lx.eval('hide.sel')
 lx.eval('select.drop item')
 
-lx.eval('select.subItem '+Mesh_HI+'')
-lx.eval('select.drop item')
+lx.eval('select.subItem '+MESH_Decals+'')
+# lx.eval('select.drop item')
