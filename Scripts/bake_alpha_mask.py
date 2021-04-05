@@ -2,9 +2,6 @@
 
 from definitions import *
 
-# Set bake sources and targets and corresponding materials 
-lx.eval('@set_sources_targets.py')
-
 # Set bake settings final for 2048*2px
 lx.eval('@bake_settings_final.py')
 

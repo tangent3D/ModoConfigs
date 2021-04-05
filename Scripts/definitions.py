@@ -2,52 +2,46 @@
 # Restart Modo for changes to take effect
 
 # Mesh_LO
-MESH_LO = "mesh023"
+MESH_LO = "mesh022"
 # MESH_HI
-Mesh_HI = "mesh022"
-# MESH_Decals
-MESH_Decals = "mesh024"
+Mesh_HI = "mesh023"
 #Alpha Output
-RO_Alpha = "renderOutput029"
+RO_Alpha = "renderOutput026"
 #Diffuse Color Output
-RO_Diffuse = "renderOutput030"
+RO_Diffuse = "renderOutput027"
 #Shading Normal Output
-RO_ShadingNormal = "renderOutput031"
+RO_ShadingNormal = "renderOutput028"
 #Ambient Occlusion Output
-RO_AO = "renderOutput032"
+RO_AO = "renderOutput029"
 #Surface ID Output
-RO_ID = "renderOutput033"
+RO_ID = "renderOutput030"
 #Curvature Texture Layer
-TEX_Curvature = "occlusion035"
+TEX_Curvature = "occlusion031"
 #Wireframe Texture Layer
-TEX_Wireframe = "val.wireframe036"
+TEX_Wireframe = "val.wireframe032"
 #World Space Normals Bake Item
-BAKE_RO_ShadingNormal = "bakeItemRO045"
+BAKE_RO_ShadingNormal = "bakeItemRO041"
 #Curvature Bake Item
-BAKE_RO_Curvature = "bakeItemRO046"
+BAKE_RO_Curvature = "bakeItemRO042"
 #Alpha Mask Bake Item
-BAKE_RO_Alpha = "bakeItemRO047"
+BAKE_RO_Alpha = "bakeItemRO043"
 #Ambient Occlusion Bake Item
-BAKE_RO_AO = "bakeItemRO048"
+BAKE_RO_AO = "bakeItemRO044"
 #Surface ID Bake Item
-BAKE_RO_ID = "bakeItemRO049"
-#Decals ID Bake Item
-BAKE_RO_Decals = "bakeItemRO050"
+BAKE_RO_ID = "bakeItemRO045"
 #TS Normals Texture Bake Item
-BAKE_TEX_Normal = "bakeItemTexture051"
+BAKE_TEX_Normal = "bakeItemTexture046"
 #Displacement Texture Bake Item
-BAKE_TEX_Displacement = "bakeItemTexture052"
+BAKE_TEX_Displacement = "bakeItemTexture047"
 #RoundEdge Material
-MAT_RoundEdge = "advancedMaterial026"
+MAT_RoundEdge = "advancedMaterial025"
 #RoundEdge Material Mask
-MASK_MAT_RoundEdge = "mask025"
+MASK_MAT_RoundEdge = "mask024"
 #Mesh_LO Material
-MAT_LO = "advancedMaterial028"
+MAT_LO = "advancedMaterial040"
 #Mesh_LO Material Mask
-MASK_MAT_LO = "mask027"
-#Decals Material
-MAT_Decals = "advancedMaterial044"
+MASK_MAT_LO = "mask039"
 #Displacement Image
-IMG_Displacement = "imageMap058"
+IMG_Displacement = "imageMap053"
 #TS Normals Image
-IMG_Normal = "imageMap053"
+IMG_Normal = "imageMap048"

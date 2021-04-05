@@ -1,15 +1,6 @@
 # python
 
-# Create a new mesh container (Mesh_HI)
-lx.eval('layer.new')
-lx.eval('tool.set prim.cube on 0')
-lx.eval('tool.reset prim.cube')
-lx.eval('tool.apply')
-lx.eval('tool.set prim.cube off 0')
-lx.eval('item.name Mesh_HI')
-MESH_HI = lx.eval("query sceneservice selection ? locator")
-
-# Create a new mesh container (Mesh_LO)
+# Create a new mesh (Mesh_LO)
 lx.eval('layer.new')
 lx.eval('tool.set prim.cube on 0')
 lx.eval('tool.reset prim.cube')
@@ -19,15 +10,14 @@ lx.eval('item.name Mesh_LO')
 MESH_LO = lx.eval("query sceneservice selection ? locator")
 lx.eval('select.drop item')
 
-# Create a new mesh container (Mesh_Decals)
+# Create a new mesh (Mesh_HI)
 lx.eval('layer.new')
 lx.eval('tool.set prim.cube on 0')
 lx.eval('tool.reset prim.cube')
 lx.eval('tool.apply')
 lx.eval('tool.set prim.cube off 0')
-lx.eval('item.name Mesh_Decals')
-MESH_Decals = lx.eval("query sceneservice selection ? locator")
-lx.eval('select.drop item')
+lx.eval('item.name Mesh_HI')
+MESH_HI = lx.eval("query sceneservice selection ? locator")
 
 ### Create RoundEdge material and assign to MESH_HI
 lx.eval('select.drop item')
@@ -42,17 +32,6 @@ lx.eval('item.channel advancedMaterial$rndWidth 0.01')
 lx.eval('item.channel advancedMaterial$rndSame true')
 lx.eval('select.subItem ' + MAT_RoundEdge + ' remove')
 MASK_MAT_RoundEdge = lx.eval1("query sceneservice selection ? all")
-
-### Create "LO" material and assign to MESH_LO
-lx.eval('select.drop item')
-lx.eval('select.subItem ' + MESH_LO + '')
-lx.eval('poly.setMaterial Mesh {1.0 1.0 1.0} 1.0 0.04 true false false')
-lx.eval('select.subItem ' + MESH_LO + ' remove')
-MAT_LO = lx.eval1("query sceneservice selection ? all")
-# Set smoothing angle to 25 degrees
-lx.eval('item.channel advancedMaterial$smAngle 25.0')
-lx.eval('select.subItem ' + MAT_LO + ' remove')
-MASK_MAT_LO = lx.eval1("query sceneservice selection ? all")
 
 ### Cleaning up the default scene ###
 
@@ -99,12 +78,6 @@ lx.eval('shader.create renderOutput')
 lx.eval('shader.setEffect geo.surface')
 RO_ID = lx.eval("query sceneservice selection ? all")
 
-# Create the Decals ID Render Output
-lx.eval('shader.create renderOutput')
-lx.eval('shader.setEffect geo.surface')
-lx.eval('item.name "Decals ID Output" renderOutput')
-RO_Decals = lx.eval("query sceneservice selection ? all")
-
 ### Creating texture layers ###
 
 # Create Texture Layer Occlusion (Curvature) 
@@ -127,14 +100,16 @@ lx.eval('texture.instance')
 lx.eval('shader.setEffect bump')
 lx.eval('item.channel textureLayer$invert true')
 
-### Making sure that MAT_Decals is at top of render tree
-
-# Create "Decals" material and assign to MESH_Decals
+### Create "LO" material and assign to MESH_LO
 lx.eval('select.drop item')
-lx.eval('select.subItem ' + MESH_Decals + '')
-lx.eval('poly.setMaterial Decals {0.0 0.0 0.0} 1.0 0.04 true false false')
-lx.eval('select.subItem ' + MESH_Decals + ' remove')
-MAT_Decals = lx.eval1("query sceneservice selection ? all")
+lx.eval('select.subItem ' + MESH_LO + '')
+lx.eval('poly.setMaterial Mesh {1.0 1.0 1.0} 1.0 0.04 true false false')
+lx.eval('select.subItem ' + MESH_LO + ' remove')
+MAT_LO = lx.eval1("query sceneservice selection ? all")
+# Set smoothing angle to 25 degrees
+lx.eval('item.channel advancedMaterial$smAngle 25.0')
+lx.eval('select.subItem ' + MAT_LO + ' remove')
+MASK_MAT_LO = lx.eval1("query sceneservice selection ? all")
 
 ### Creating Bake Items ###
 
@@ -168,12 +143,6 @@ lx.eval('item.name "Surface ID"bakeItemRO')
 lx.eval('bakeItem.renderOutput ' + RO_ID + '')
 BAKE_RO_ID = lx.eval("query sceneservice selection ? all")
 
-# Create Decals ID Bake Item
-lx.eval('bakeItem.createOutputBake')
-lx.eval('item.name "Decals ID"bakeItemRO')
-lx.eval('bakeItem.renderOutput '+ RO_Decals +'')
-BAKE_RO_Decals = lx.eval("query sceneservice selection ? all")
-
 ### Creating Texture Bake Items ###
 
 # Create Tangent Space Normals Texture Bake Item
@@ -195,7 +164,6 @@ lx.eval('select.subItem ' + BAKE_RO_Curvature + '')
 lx.eval('select.subItem ' + BAKE_RO_Alpha + '')
 lx.eval('select.subItem ' + BAKE_RO_AO + '')
 lx.eval('select.subItem ' + BAKE_RO_ID + '')
-lx.eval('select.subItem ' + BAKE_RO_Decals + '')
 lx.eval('item.channel bakeItemRO$bakeFrom true')
 lx.eval('item.channel bakeItemRO$hiddenTarget true')
 lx.eval('item.channel bakeItemRO$hiddenSource true')
@@ -206,6 +174,18 @@ lx.eval('item.channel bakeItemRO$width 512')
 lx.eval('item.channel bakeItemRO$height 512')
 lx.eval('bakeItem.setUV Texture')
 
+# Set Render Ouput Bake Item target meshes
+lx.eval('select.subItem '+ MESH_LO +' set')
+lx.eval('bakeItem.target {} type:1')
+lx.eval('bakeItem.setAsTarget 0 1 0')
+lx.eval('select.subItem '+ MESH_LO +' remove')
+
+# Set Render Output Bake Item source meshes
+lx.eval('select.subItem '+ MESH_HI +' set')
+lx.eval('bakeItem.source {} type:1')
+lx.eval('bakeItem.setAsSource 0 1 0')
+lx.eval('select.drop item')
+
 lx.eval('select.subItem ' + BAKE_TEX_Normal + '')
 lx.eval('select.subItem ' + BAKE_TEX_Displacement + '')
 lx.eval('item.channel bakeItemTexture$bakeFrom true')
@@ -215,8 +195,20 @@ lx.eval('item.channel bakeItemTexture$hiddenOutput true')
 lx.eval('item.channel bakeItemTexture$saveOutputFile true')
 lx.eval('item.channel bakeItemTexture$distance 0.005')
 
+# Set Texture Bake Item target meshes
+lx.eval('select.subItem '+ MESH_LO +' set')
+lx.eval('bakeItem.target {} type:0')
+lx.eval('bakeItem.setAsTarget 0 0 0')
+lx.eval('select.subItem '+ MESH_LO +' remove')
+
+# Set Texture Bake Item source meshes
+lx.eval('select.subItem '+ MESH_HI +' set')
+lx.eval('bakeItem.source {} type:0')
+lx.eval('bakeItem.setAsSource 0 0 0')
+lx.eval('select.subItem '+ MESH_HI +' remove')
+lx.eval('select.drop item')
+
 # Hide non-essential items
-lx.eval('shader.setVisible ' + RO_Decals +' false')
 lx.eval('shader.setVisible ' + RO_ID + ' false')
 lx.eval('shader.setVisible ' + RO_AO + ' false')
 lx.eval('shader.setVisible ' + RO_ShadingNormal + ' false')
@@ -251,11 +243,6 @@ lx.eval('select.subItem '+ MESH_HI +' set')
 lx.eval('item.name "' + user_input + '_HI"')
 lx.eval('select.drop item')
 
-# Rename MESH_Decals to match project name
-lx.eval('select.subItem '+ MESH_Decals +' set')
-lx.eval('item.name "' + user_input + '_Decals"')
-lx.eval('select.drop item')
-
 # Rename mesh material to match project name
 lx.eval('select.subItem '+ MASK_MAT_LO +' set')
 lx.eval("dialog.result ok")
@@ -282,10 +269,6 @@ lx.eval('select.subItem '+ BAKE_RO_AO +'')
 lx.eval('item.channel bakeItemRO$outPattern "' + user_input +'_Ambient_Occlusion"')
 lx.eval('select.drop item')
 
-lx.eval('select.subItem '+ BAKE_RO_Decals +'')
-lx.eval('item.channel bakeItemRO$outPattern "' + user_input +'_Decals_ID"')
-lx.eval('select.drop item')
-
 # Set render output directory (usually project's 'bake' folder)
 lx.eval('dialog.setup dir')
 lx.eval('dialog.title "Set project bake directory"')
@@ -300,7 +283,6 @@ lx.eval('select.subItem '+ BAKE_RO_Alpha +' set')
 lx.eval('select.subItem '+ BAKE_RO_Curvature +' set')
 lx.eval('select.subItem '+ BAKE_RO_ID +' set')
 lx.eval('select.subItem '+ BAKE_RO_ShadingNormal +' set')
-lx.eval('select.subItem '+ BAKE_RO_Decals +' set')
 lx.eval('item.channel outLocation "' + output_dir + '"')
 lx.eval('select.drop item')
 
@@ -346,27 +328,24 @@ lx.eval('select.drop item')
 lx.eval('shader.setVisible '+ IMG_Normal +' false')
 lx.eval('shader.setVisible '+ IMG_Displacement +' false')
 
-# Delete MESH_HI and MESH_Decals UV maps
-lx.eval('select.subItem '+ MESH_HI +'')
-lx.eval('select.subItem '+ MESH_Decals +'')
+# Delete MESH_HI UV Map
 lx.eval('dialog.result ok')
 lx.eval('vertMap.delete txuv')
-lx.eval('select.drop item')
 
 # Set render frame to 1:1 ratio
 lx.eval('render.res 0 1024')
 lx.eval('render.res 1 1024')
 
-# Lock the mesh containers
-lx.eval('select.subItem '+ MESH_HI +'')
-lx.eval('select.subItem '+ MESH_Decals +'')
+# Lock the Mesh_LO container
 lx.eval('select.subItem '+MESH_LO+'')
 lx.eval('item.channel locator$lock on')
+
+# Make MESH_HI the only item visible in the scene
+lx.eval('@show_HI.py')
 
 # Print debug text (for use in definitions.py)
 lx.out('Mesh_LO:',MESH_LO)
 lx.out('Mesh_HI:',MESH_HI)
-lx.out('Mesh_Decals:',MESH_Decals)
 lx.out('Alpha Output:',RO_Alpha)
 lx.out('Diffuse Color Output:',RO_Diffuse)
 lx.out('Shading Normal Output:',RO_ShadingNormal)
@@ -379,19 +358,11 @@ lx.out('Curvature Bake Item:',BAKE_RO_Curvature)
 lx.out('Alpha Mask Bake Item:',BAKE_RO_Alpha)
 lx.out('Ambient Occlusion Bake Item:',BAKE_RO_AO)
 lx.out('Surface ID Bake Item:',BAKE_RO_ID)
-lx.out('Decals ID Bake Item:',BAKE_RO_Decals)
 lx.out('TS Normals Texture Bake Item:',BAKE_TEX_Normal)
 lx.out('Displacement Texture Bake Item:',BAKE_TEX_Displacement)
 lx.out('RoundEdge Material:',MAT_RoundEdge)
 lx.out('RoundEdge Material Mask:',MASK_MAT_RoundEdge)
 lx.out('Mesh_LO Material:',MAT_LO)
 lx.out('Mesh_LO Material Mask:',MASK_MAT_LO)
-lx.out('Mesh_Decals Material:',MAT_Decals)
 lx.out('Displacement Image:',IMG_Displacement)
 lx.out('TS Normals Image:',IMG_Normal)
-
-# Make MESH_HI the only item visible in the scene
-lx.eval('@show_HI.py')
-
-# Assign bake item sources/targets
-lx.eval('@set_sources_targets.py')
