@@ -25,6 +25,7 @@ lx.eval('select.subItem ' + BAKE_RO_Curvature + '')
 lx.eval('select.subItem ' + BAKE_RO_Alpha + '')
 lx.eval('select.subItem ' + BAKE_RO_AO + '')
 lx.eval('select.subItem ' + BAKE_RO_ID + '')
+lx.eval('select.subItem ' + BAKE_RO_Decals +'')
 
 # Set bake distance on render output bake items
 lx.eval('item.channel bakeItemRO$distance '+ user_input +'')

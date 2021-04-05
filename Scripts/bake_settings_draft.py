@@ -14,6 +14,7 @@ lx.eval('select.subItem ' + BAKE_RO_Curvature + '')
 lx.eval('select.subItem ' + BAKE_RO_Alpha + '')
 lx.eval('select.subItem ' + BAKE_RO_AO + '')
 lx.eval('select.subItem ' + BAKE_RO_ID + '')
+lx.eval('select.subItem ' + BAKE_RO_Decals + '')
 
 lx.eval('item.channel bakeItemRO$width 1024')
 lx.eval('item.channel bakeItemRO$height 1024')
