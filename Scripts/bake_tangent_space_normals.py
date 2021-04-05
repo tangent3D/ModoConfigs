@@ -2,6 +2,9 @@
 
 from definitions import *
 
+# Set bake sources and targets and corresponding materials 
+lx.eval('@set_sources_targets.py')
+
 lx.eval('select.drop item')
 lx.eval('shader.setVisible '+ TEX_Curvature +' false')
 lx.eval('select.subItem '+ BAKE_TEX_Normal +' set')
