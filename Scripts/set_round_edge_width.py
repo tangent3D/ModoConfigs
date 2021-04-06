@@ -35,3 +35,6 @@ lineWidth = (lineWidth / 2)
 lineWidth = str(lineWidth)
 lx.eval('select.subItem ' + TEX_Wireframe + '')
 lx.eval('item.channel val.wireframe$width '+ lineWidth +'')
+
+lx.eval('select.drop item')
+lx.eval('@show_HI.py')

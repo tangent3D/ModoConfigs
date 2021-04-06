@@ -5,7 +5,7 @@ from definitions import *
 # Set bake sources and targets and corresponding materials 
 lx.eval('@set_sources_targets.py')
 
-# Set bake settings draft
+# Set bake settings final
 lx.eval('@bake_settings_final.py')
 
 # Explode to frame 1

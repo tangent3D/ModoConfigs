@@ -88,12 +88,6 @@ lx.eval('shader.create renderOutput')
 lx.eval('shader.setEffect geo.surface')
 RO_ID = lx.eval("query sceneservice selection ? all")
 
-# Create the Decals ID Render Output
-lx.eval('shader.create renderOutput')
-lx.eval('shader.setEffect geo.surface')
-lx.eval('item.name "Decals ID Output" renderOutput')
-RO_Decals = lx.eval("query sceneservice selection ? all")
-
 ### Creating texture layers ###
 
 # Create Texture Layer Occlusion (Curvature) 
@@ -171,7 +165,7 @@ BAKE_RO_ID = lx.eval("query sceneservice selection ? all")
 # Create Decals ID Bake Item
 lx.eval('bakeItem.createOutputBake')
 lx.eval('item.name "Decals ID"bakeItemRO')
-lx.eval('bakeItem.renderOutput '+ RO_Decals +'')
+lx.eval('bakeItem.renderOutput '+ RO_ID +'')
 BAKE_RO_Decals = lx.eval("query sceneservice selection ? all")
 
 ### Creating Texture Bake Items ###
@@ -216,7 +210,6 @@ lx.eval('item.channel bakeItemTexture$saveOutputFile true')
 lx.eval('item.channel bakeItemTexture$distance 0.005')
 
 # Hide non-essential items
-lx.eval('shader.setVisible ' + RO_Decals +' false')
 lx.eval('shader.setVisible ' + RO_ID + ' false')
 lx.eval('shader.setVisible ' + RO_AO + ' false')
 lx.eval('shader.setVisible ' + RO_ShadingNormal + ' false')
