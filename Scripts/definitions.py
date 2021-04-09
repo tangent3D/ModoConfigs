@@ -1,53 +1,74 @@
-# Values are obtained from Event Viewer after running initialize_project.py
-# Restart Modo for changes to take effect
+# python
 
-# Mesh_LO
-MESH_LO = "mesh023"
-# MESH_HI
-Mesh_HI = "mesh022"
-# MESH_Decals
-MESH_Decals = "mesh024"
-#Alpha Output
-RO_Alpha = "renderOutput027"
-#Diffuse Color Output
-RO_Diffuse = "renderOutput028"
-#Shading Normal Output
-RO_ShadingNormal = "renderOutput029"
-#Ambient Occlusion Output
-RO_AO = "renderOutput030"
-#Surface ID Output
-RO_ID = "renderOutput031"
-#Curvature Texture Layer
-TEX_Curvature = "occlusion032"
-#Wireframe Texture Layer
-TEX_Wireframe = "val.wireframe033"
-#World Space Normals Bake Item
-BAKE_RO_ShadingNormal = "bakeItemRO044"
-#Curvature Bake Item
-BAKE_RO_Curvature = "bakeItemRO045"
-#Alpha Mask Bake Item
-BAKE_RO_Alpha = "bakeItemRO046"
-#Ambient Occlusion Bake Item
-BAKE_RO_AO = "bakeItemRO047"
-#Surface ID Bake Item
-BAKE_RO_ID = "bakeItemRO048"
-#Decals ID Bake Item
-BAKE_RO_Decals = "bakeItemRO049"
-#TS Normals Texture Bake Item
-BAKE_TEX_Normal = "bakeItemTexture050"
-#Displacement Texture Bake Item
-BAKE_TEX_Displacement = "bakeItemTexture051"
-#RoundEdge Material
-MAT_RoundEdge = "advancedMaterial026"
-#RoundEdge Material Mask
-MASK_MAT_RoundEdge = "mask025"
-#Mesh_LO Material
-MAT_LO = "advancedMaterial041"
-#Mesh_LO Material Mask
-MASK_MAT_LO = "mask040"
-#Decals Material
-MAT_Decals = "advancedMaterial043"
-#Displacement Image
-IMG_Displacement = "imageMap057"
-#TS Normals Image
-IMG_Normal = "imageMap052"
+import modo
+
+def getProjectName():
+	x = modo.item.Item('locator.LO').parent
+	return x.name
+
+def getMESH_LO():
+	return modo.item.Item('locator.LO').parent
+
+def getMESH_HI():
+	return modo.item.Item('locator.HI').parent
+
+def getMESH_Decals():
+	return modo.item.Item('locator.Decals').parent
+
+def getMASK_MAT_LO():
+	x = modo.item.Item('locator.LO').parent
+	return modo.item.Item(''+x.name+' (Material)')
+
+def getMAT_LO():
+	x = modo.item.Item('locator.LO').parent
+	y = modo.item.Item(''+x.name+' (Material)')
+	z = y.childrenByType('advancedMaterial')
+	return z[0]
+	
+def getMASK_MAT_RoundEdge():
+	return modo.item.Item('RoundEdge (Material)')
+
+def getMAT_RoundEdge():
+	x = modo.item.Item('RoundEdge (Material)')
+	y = x.childrenByType('advancedMaterial')
+	return y[0]
+
+def getRO_Alpha():
+	return modo.item.Item('Alpha Output')
+
+def getRO_Diffuse():
+	return modo.item.Item('Diffuse Color Output')
+
+def getRO_ShadingNormal():
+	return modo.item.Item('Shading Normal Output')
+
+def getRO_ID():
+	return modo.item.Item('Surface ID Output')	
+
+def getTEX_Curvature():
+	return modo.item.Item('Curvature')
+							
+def getTEX_Wireframe():
+	return modo.item.Item('Wireframe Texture')
+
+def getBAKE_RO_ShadingNormal():
+	return modo.item.Item('World Space Normals Bake')
+
+def getBAKE_RO_Curvature():
+	return modo.item.Item('Curvature Bake')
+
+def getBAKE_RO_Alpha():
+	return modo.item.Item('Alpha Mask Bake')
+
+def getBAKE_RO_ID():
+	return modo.item.Item('Surface ID Bake')
+
+def getBAKE_RO_Decals():
+	return modo.item.Item('Decals ID Bake')
+
+def getBAKE_TEX_Normal():
+	return modo.item.Item('Tangent Space Normals Texture Bake')
+
+def getIMG_Normal():
+	x = modo.item.Item('locator.LO').parent
+	return modo.item.Item(''+x.name+'_Normal_Base (Image)')

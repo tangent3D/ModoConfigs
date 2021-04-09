@@ -2,18 +2,18 @@
 
 from definitions import *
 
-lx.eval('select.drop item')
-lx.eval('select.subItem '+MESH_LO+'')
+MESH_LO = getMESH_LO()
+MESH_HI = getMESH_HI()
+MESH_Decals = getMESH_Decals()
+
+MESH_LO.select(replace=True)
 lx.eval('select.itemHierarchy')
 lx.eval('unhide')
-lx.eval('select.drop item')
 
-lx.eval('select.subItem '+Mesh_HI+'')
-lx.eval('select.subItem '+MESH_Decals+'')
+MESH_HI.select(replace=True)
+MESH_Decals.select()
 lx.eval('select.itemHierarchy')
 lx.eval('hide.sel')
-lx.eval('select.drop item')
 
-lx.eval('select.subItem '+MESH_LO+'')
+MESH_LO.select(replace=True)
 lx.eval('select.vertexMap Texture txuv replace')
-# lx.eval('select.drop item')
