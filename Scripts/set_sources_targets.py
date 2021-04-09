@@ -11,6 +11,7 @@ BAKE_RO_Alpha = getBAKE_RO_Alpha()
 BAKE_RO_ID = getBAKE_RO_ID()
 BAKE_RO_Decals = getBAKE_RO_Decals()
 BAKE_TEX_Normal = getBAKE_TEX_Normal()
+IMG_Normal = getIMG_Normal()
 
 # Set sources
 # Assign RoundEdge material to HP mesh and all children
@@ -58,6 +59,9 @@ lx.eval('select.itemHierarchy')
 BAKE_TEX_Normal.select()
 lx.eval('bakeItem.target {} type:0')
 lx.eval('bakeItem.setAsTarget 0 0 0')
+
+BAKE_TEX_Normal.select(replace=True)
+lx.eval('bakeItem.texture '+IMG_Normal.id+'')
 
 # Set decals sources and materials
 MESH_Decals.select(replace=True)
