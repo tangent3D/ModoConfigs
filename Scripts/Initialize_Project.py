@@ -266,7 +266,7 @@ lx.eval('bakeItem.texture {}')
 lx.eval('bakeItem.setAsTextureOutput 0')
 lx.eval('select.drop item')
 
-# End normal map bullshit
+# End normal map creation
 
 # Delete MESH_HI and MESH_Decals UV maps
 MESH_HI.select(replace=True)
