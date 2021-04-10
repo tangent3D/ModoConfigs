@@ -2,6 +2,16 @@
 
 import modo
 
+# Roughly check if the scene has already been initialized
+# FIXME: Should exit gracefully
+scene = modo.Scene()
+
+try:
+	mesh = scene.item('locator.LO')
+	modo.dialogs.alert('Scene already initialized', 'Please create a new scene first.', dtype='info')
+except:
+	pass
+
 # Create a new mesh container (Mesh_Decals)
 lx.eval('layer.new')
 lx.eval('tool.set prim.cube on 0')
@@ -187,53 +197,54 @@ lx.eval('shader.setVisible '+RO_Alpha.id+' false')
 ### Project organization ###
 
 # Get project name from user
-lx.eval("user.defNew name:UserValue type:string life:momentary")
-lx.eval('user.def UserValue dialogname "Set project name"')
-lx.eval("user.def UserValue username {Name}")
+lx.eval("user.defNew name:UserValueProjectName type:string life:momentary")
+lx.eval('user.def UserValueProjectName dialogname "Set project name"')
+lx.eval("user.def UserValueProjectName username {Name}")
 
 try:
-    lx.eval("?user.value UserValue")
+    lx.eval("?user.value UserValueProjectName")
     userResponse = lx.eval("dialog.result ?")
     
 except:
     userResponse = lx.eval("dialog.result ?")
     sys.exit()
     
-user_input = lx.eval("user.value UserValue ?")
-lx.out('Project name:',user_input)
+projectName = lx.eval("user.value UserValueProjectName ?")
+
+lx.out('Project name:',projectName)
 
 # Rename Mesh_LO to match project name
 MESH_LO.select(replace=True)
-lx.eval('item.name "' + user_input + '"')
+lx.eval('item.name "' + projectName + '"')
 
 # Rename MESH_HI to match project name
 MESH_HI.select(replace=True)
-lx.eval('item.name "' + user_input + '_HI"')
+lx.eval('item.name "' + projectName + '_HI"')
 
 # Rename MESH_Decals to match project name
 MESH_Decals.select(replace=True)
-lx.eval('item.name "' + user_input + '_Decals"')
+lx.eval('item.name "' + projectName + '_Decals"')
 
 # Rename mesh material to match project name
 MASK_MAT_LO.select(replace=True)
 lx.eval("dialog.result ok")
-lx.eval('texture.name "' + user_input + '"')
+lx.eval('texture.name "' + projectName + '"')
 
 # Rename render output file names with project name + suffix
 BAKE_RO_ShadingNormal.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + user_input +'_World_Space_Normals"')
+lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_World_Space_Normals"')
 
 BAKE_RO_Curvature.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + user_input +'_Curvature"')
+lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Curvature"')
 
 BAKE_RO_ID.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + user_input +'_ID"')
+lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_ID"')
 
 BAKE_RO_Alpha.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + user_input +'_Mask"')
+lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Mask"')
 
 BAKE_RO_Decals.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + user_input +'_Decals_ID"')
+lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Decals_ID"')
 
 # Set render output directory (usually project's 'bake' folder)
 lx.eval('dialog.setup dir')
@@ -250,23 +261,92 @@ BAKE_RO_ShadingNormal.select()
 BAKE_RO_Decals.select()
 lx.eval('item.channel outLocation "' + output_dir + '"')
 
-# Make a normal map image and parent it in the MESH_LO material
-lx.eval('clip.newStill "' + output_dir + '\\' + user_input + '_Normal_Base.png" x2048 RGB false false {0.0 0.0 0.0} PNG (none)')
-lx.eval('select.subItem {' + user_input + '_Normal_Base:videoStill001} set mediaClip')
-lx.eval('texture.new clip:{' + user_input +'_Normal_Base:videoStill001}')
-MASK_MAT_LO.select()
-lx.eval('texture.parent '+MASK_MAT_LO.id+'')
-lx.eval('select.subItem '+MASK_MAT_LO.id+' remove')
-lx.eval('item.channel textureLayer(txtrLocator)$projType uv')
-lx.eval('texture.setUV Texture')
-lx.eval('shader.setEffect normal')
-# While texture layer is selected, assign normal texture output to TS normal bake item
-BAKE_TEX_Normal.select()
-lx.eval('bakeItem.texture {}')
-lx.eval('bakeItem.setAsTextureOutput 0')
-lx.eval('select.drop item')
+# Creating normal maps and configuring the project for UDIMs
 
-# End normal map creation
+def askUDIMs():
+	# Check if the project should be configured for UDIMs
+	return modo.dialogs.yesNo('UDIMs','Use UDIMs?')
+
+def askRangeStart():
+	#Get desired UDIM range start from user
+	lx.eval("user.defNew name:UserValueRangeStart type:string life:momentary")
+	lx.eval('user.def UserValueRangeStart dialogname "Set UDIM Range Start"')
+	lx.eval("user.def UserValueRangeStart username {Default: 1001}")
+
+	try:
+		lx.eval("?user.value UserValueRangeStart")
+		userResponse = lx.eval("dialog.result ?")
+	except:
+		pass
+
+	rangeStart = lx.eval("user.value UserValueRangeStart ?")
+
+	if rangeStart == "":
+		rangeStart = "1001"
+
+	return rangeStart
+
+def askRangeEnd():
+	#Get desired UDIM range end from user
+	lx.eval("user.defNew name:UserValueRangeEnd type:string life:momentary")
+	lx.eval('user.def UserValueRangeEnd dialogname "Set UDIM Range End"')
+	lx.eval("user.def UserValueRangeEnd username {Default: 1001}")
+
+	try:
+		lx.eval("?user.value UserValueRangeEnd")
+		userResponse = lx.eval("dialog.result ?")
+	except:
+		pass
+
+	rangeEnd = lx.eval("user.value UserValueRangeEnd ?")
+
+	if rangeEnd == "":
+		rangeEnd = "1001"
+
+	return rangeEnd
+
+def createNormalsUDIMs():
+	MASK_MAT_LO.select(replace=True)
+	lx.eval('clip.udimWizard "'+output_dir+'" '+projectName+'_Normal_Base '+rangeStart+' '+rangeEnd+' x2048 rgb false false format:PNG overwrite:false')
+	lx.eval('shader.create imageMap 0')
+	# Set TS Normal image map folder effect to Normal while it's selected
+	lx.eval('shader.setEffect normal')
+
+def createNormalsDefault():
+	# Make a normal map image and parent it in the MESH_LO material
+	lx.eval('clip.newStill "' + output_dir + '\\' + projectName + '_Normal_Base.png" x2048 RGB false false {0.0 0.0 0.0} PNG (none)')
+	lx.eval('select.subItem {' + projectName + '_Normal_Base:videoStill001} set mediaClip')
+	lx.eval('texture.new clip:{' + projectName +'_Normal_Base:videoStill001}')
+	MASK_MAT_LO.select()
+	lx.eval('texture.parent '+MASK_MAT_LO.id+'')
+	lx.eval('select.subItem '+MASK_MAT_LO.id+' remove')
+	lx.eval('item.channel textureLayer(txtrLocator)$projType uv')
+	lx.eval('texture.setUV Texture')
+	lx.eval('shader.setEffect normal')
+	# While texture layer is selected, assign normal texture output to TS normal bake item
+	BAKE_TEX_Normal.select()
+	lx.eval('bakeItem.texture {}')
+	lx.eval('bakeItem.setAsTextureOutput 0')
+	lx.eval('select.drop item')
+	pass
+
+def setBakeUDIMs():
+	BAKE_RO_Alpha.select(replace=True)
+	BAKE_RO_Curvature.select()
+	BAKE_RO_ID.select()
+	BAKE_RO_ShadingNormal.select()
+	BAKE_RO_Decals.select()
+	lx.eval('item.channel bakeItemRO$useUDIM true')
+	lx.eval('item.channel bakeItemRO$startUDIM '+rangeStart+'')
+	lx.eval('item.channel bakeItemRO$endUDIM '+rangeEnd+'')
+
+if askUDIMs() == "yes":
+	rangeStart = askRangeStart()
+	rangeEnd = askRangeEnd()
+	createNormalsUDIMs()
+	setBakeUDIMs()
+else:
+	createNormalsDefault()	
 
 # Delete MESH_HI and MESH_Decals UV maps
 MESH_HI.select(replace=True)
