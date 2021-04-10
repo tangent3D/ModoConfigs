@@ -2,10 +2,9 @@
 
 from definitions import *
 
-MESH_LO = getMESH_LO()
 scene = modo.Scene()
 
-MESH_LO.select(replace=True)
+getMESH_LO().select(replace=True)
 lx.eval('select.itemHierarchy')
 # Deselect the locator so it's not merged
 modo.item.Item('locator.LO').deselect()

@@ -70,5 +70,12 @@ def getBAKE_TEX_Normal():
 	return modo.item.Item('Tangent Space Normals Texture Bake')
 
 def getIMG_Normal():
+	# Get the TS normal image map layer
 	x = modo.item.Item('locator.LO').parent
-	return modo.item.Item(''+x.name+'_Normal_Base (Image)')
+	y = modo.item.Item(''+x.name+' (Material)')
+	z = y.childAtIndex(1)
+	return z
+
+def getOutputDir():
+	x = getBAKE_RO_Curvature().channel('outLocation').get()
+	return x

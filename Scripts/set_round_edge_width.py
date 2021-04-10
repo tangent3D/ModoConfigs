@@ -2,10 +2,6 @@
 
 from definitions import *
 
-MAT_RoundEdge = getMAT_RoundEdge()
-TEX_Curvature = getTEX_Curvature() 
-TEX_Wireframe = getTEX_Wireframe()
-
 # Get desired round edge width from user
 lx.eval("user.defNew name:UserValue type:string life:momentary")
 lx.eval('user.def UserValue dialogname "Set round edge width"')
@@ -23,21 +19,21 @@ user_input = lx.eval("user.value UserValue ?")
 lx.out('Round edge width:',user_input)
 
 # Set RoundEdge material width
-MAT_RoundEdge.select(replace=True)
+getMAT_RoundEdge().select(replace=True)
 lx.eval('item.channel advancedMaterial$rndWidth '+ user_input +'')
 
 # Set Curvature Occlusion Distance to RE width * 10
 occlusionDistance = float(user_input)
 occlusionDistance = (occlusionDistance * 10)
 occlusionDistance = str(occlusionDistance)
-TEX_Curvature.select(replace=True)
+getTEX_Curvature().select(replace=True)
 lx.eval('item.channel occlusion$dist ' + occlusionDistance + '')
 
 # Set Wireframe Texture line width to RE width / 2
 lineWidth = float(user_input)
 lineWidth = (lineWidth / 2)
 lineWidth = str(lineWidth)
-TEX_Wireframe.select(replace=True)
+getTEX_Wireframe().select(replace=True)
 lx.eval('item.channel val.wireframe$width '+ lineWidth +'')
 
 lx.eval('select.drop item')
