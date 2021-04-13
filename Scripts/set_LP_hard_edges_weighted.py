@@ -10,6 +10,7 @@ lx.eval('material.smoothCrease hardedges:true')
 lx.eval('material.smoothWeight area true')
 
 getMESH_LO().select(replace=True)
+lx.eval('select.itemHierarchy')
 lx.eval('select.vertexMap Texture txuv replace')
 lx.eval('hardedge.setDefault uvisland')
 lx.eval('hardedge.setDefault soft:uvisland')
