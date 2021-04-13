@@ -11,7 +11,7 @@ lx.eval('@bake_settings_final.py')
 # Explode to frame 1
 lx.eval('select.time 0.041667 0 0')
 
-lx.eval('shader.setVisible '+getEX_Curvature().id+' false')
+lx.eval('shader.setVisible '+getTEX_Curvature().id+' false')
 
 getBAKE_RO_ShadingNormal().select(replace=True)
 
