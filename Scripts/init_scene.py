@@ -31,7 +31,7 @@ MESH_LO = modo.item.Item(item=None)
 
 ### Create RoundEdge material and assign to MESH_HI
 MESH_HI.select(replace=True)
-lx.eval('poly.setMaterial RoundEdge {0.8 0.8 0.8} 1.0 0.04 true false')
+lx.eval('poly.setMaterial RoundEdge {1.0 1.0 1.0} 1.0 0.04 true false')
 MESH_HI.deselect()
 # Define RoundEdge material properties
 lx.eval('item.channel advancedMaterial$smAngle 25.0')
@@ -122,6 +122,12 @@ lx.eval('item.name "Curvature Bake"bakeItemRO')
 lx.eval('bakeItem.renderOutput '+RO_Diffuse.id+'')
 BAKE_RO_Curvature = modo.item.Item(item=None)
 
+# Create Seams Bake Item
+lx.eval('bakeItem.createOutputBake')
+lx.eval('item.name "Seams Bake"bakeItemRO')
+lx.eval('bakeItem.renderOutput '+RO_Diffuse.id+'')
+BAKE_RO_Seams = modo.item.Item(item=None)
+
 # Create Alpha Mask Bake Item
 lx.eval('bakeItem.createOutputBake')
 lx.eval('item.name "Alpha Mask Bake"bakeItemRO')
@@ -152,6 +158,7 @@ BAKE_TEX_Normal = modo.item.Item(item=None)
 
 BAKE_RO_ShadingNormal.select(replace=True)
 BAKE_RO_Curvature.select()
+BAKE_RO_Seams.select()
 BAKE_RO_Alpha.select()
 BAKE_RO_ID.select()
 BAKE_RO_Decals.select()
@@ -221,6 +228,9 @@ lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_World_Space_Norm
 BAKE_RO_Curvature.select(replace=True)
 lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Curvature"')
 
+BAKE_RO_Seams.select(replace=True)
+lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Seams"')
+
 BAKE_RO_ID.select(replace=True)
 lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_ID"')
 
@@ -240,6 +250,7 @@ output_dir = lx.eval('dialog.result ?')
 # Set output directory on Render Output Bake Items
 BAKE_RO_Alpha.select(replace=True)
 BAKE_RO_Curvature.select()
+BAKE_RO_Seams.select()
 BAKE_RO_ID.select()
 BAKE_RO_ShadingNormal.select()
 BAKE_RO_Decals.select()

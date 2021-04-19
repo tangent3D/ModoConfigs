@@ -66,6 +66,9 @@ def getBAKE_RO_ID():
 def getBAKE_RO_Decals():
 	return modo.item.Item('Decals ID Bake')
 
+def getBAKE_RO_Seams():
+	return modo.item.Item('Seams Bake')
+
 def getBAKE_TEX_Normal():
 	return modo.item.Item('Tangent Space Normals Texture Bake')
 

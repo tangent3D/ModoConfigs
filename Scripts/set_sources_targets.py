@@ -6,10 +6,11 @@ from definitions import *
 # Assign RoundEdge material to HP mesh and all children
 getMESH_HI().select(replace=True)
 lx.eval('select.itemHierarchy')
-lx.eval('poly.setMaterial RoundEdge {0.8 0.8 0.8} 1.0 0.04 true false false')
+lx.eval('poly.setMaterial RoundEdge {1.0 1.0 1.0} 1.0 0.04 true false false')
 
 getBAKE_RO_ShadingNormal().select()
 getBAKE_RO_Curvature().select()
+getBAKE_RO_Seams().select()
 getBAKE_RO_Alpha().select()
 getBAKE_RO_ID().select()
 
@@ -33,6 +34,7 @@ lx.eval('select.itemHierarchy')
 lx.eval('poly.setMaterial '+name+' {1.0 1.0 1.0} 1.0 0.04 true false')
 
 getBAKE_RO_ShadingNormal().select()
+getBAKE_RO_Seams().select()
 getBAKE_RO_Curvature().select()
 getBAKE_RO_Alpha().select()
 getBAKE_RO_ID().select()

@@ -75,6 +75,7 @@ def askRangeEnd():
 def setBakeUDIMs():
 	getBAKE_RO_Alpha().select(replace=True)
 	getBAKE_RO_Curvature().select()
+	getBAKE_RO_Seams().select()
 	getBAKE_RO_ID().select()
 	getBAKE_RO_ShadingNormal().select()
 	getBAKE_RO_Decals().select()

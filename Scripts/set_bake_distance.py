@@ -21,6 +21,7 @@ lx.out('Bake distance:',user_input)
 # Set bake distance on render output bake items
 getBAKE_RO_ShadingNormal().select(replace=True)
 getBAKE_RO_Curvature().select()
+getBAKE_RO_Seams().select()
 getBAKE_RO_Alpha().select()
 getBAKE_RO_ID().select()
 getBAKE_RO_Decals().select()
