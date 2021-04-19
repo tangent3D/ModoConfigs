@@ -93,12 +93,6 @@ lx.eval('item.channel val.wireframe$edgeMap Seams')
 lx.eval('item.channel val.wireframe$transWidth 1.0')
 TEX_Wireframe = modo.item.Item(item=None)
 
-# Create Wireframe Texture instance "Wireframe Bump"
-lx.eval('texture.instance')
-lx.eval('shader.setEffect bump')
-lx.eval('item.channel textureLayer$invert true')
-lx.eval('item.name "Wireframe Bump"')
-
 ### Create "LO" material and assign to MESH_LO
 MESH_LO.select(replace=True)
 lx.eval('poly.setMaterial Mesh {1.0 1.0 1.0} 1.0 0.04 true false false')
@@ -276,9 +270,3 @@ lx.eval('item.create locator')
 lx.eval('item.name locator.Decals locator')
 locDecals = modo.item.Item(item=None)
 lx.eval('item.parent '+locDecals.id+' '+MESH_Decals.id+'')
-
-# Lock the mesh containers
-MESH_HI.select(replace=True)
-MESH_LO.select()
-MESH_Decals.select()
-lx.eval('item.channel locator$lock on')

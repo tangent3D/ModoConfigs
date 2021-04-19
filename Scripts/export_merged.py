@@ -16,5 +16,4 @@ lx.eval('export.selected 15 false false false')
 # Select original scene
 modo.scene.Scene(scene=scene.scene)
 mergedMesh.select(replace=True)
-lx.eval('item.channel locator$lock off')
 lx.eval('delete')
