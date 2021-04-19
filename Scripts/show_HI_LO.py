@@ -2,15 +2,8 @@
 
 from definitions import *
 
+lx.eval('unhide')
 getMESH_HI().select(replace=True)
-getMESH_Decals().select()
+getMESH_LO().select()
 lx.eval('select.itemHierarchy')
-lx.eval('unhide')
-
-getMESH_Decals().select(replace=True)
-lx.eval('select.itemHierarchy')
-lx.eval('hide.sel')
-
-getMESH_LO().select(replace=True)
-lx.eval('select.itemHierarchy')
-lx.eval('unhide')
+lx.eval('hide.unsel')
