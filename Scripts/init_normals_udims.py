@@ -1,6 +1,7 @@
 # python
 
 from definitions import *
+import modo
 
 # Creating normal maps and configuring the project for UDIMs
 
@@ -23,6 +24,8 @@ def createNormalsDefault():
 
 def createNormalsUDIMs():
 	getMASK_MAT_LO().select(replace=True)
+	# Dialog to inform user to select image clip folder
+	modo.dialogs.alert('Creating UDIMs','When the Choose a Clip window opens, select the imageFolder. First delete all Clips and imageFolders in the Clips data list to make this easier.',dtype='info')
 	lx.eval('clip.udimWizard "'+getOutputDir()+'" '+getProjectName()+'_Normal_Base '+rangeStart+' '+rangeEnd+' x2048 rgb false false format:PNG overwrite:true')
 	lx.eval('shader.create imageMap 0')
 	# Set TS Normal image map folder effect to Normal while it's selected
@@ -83,9 +86,20 @@ def setBakeUDIMs():
 	lx.eval('item.channel bakeItemRO$startUDIM '+rangeStart+'')
 	lx.eval('item.channel bakeItemRO$endUDIM '+rangeEnd+'')
 
+def setBakeNoUDIMs():
+	getBAKE_RO_Alpha().select(replace=True)
+	getBAKE_RO_Curvature().select()
+	getBAKE_RO_Seams().select()
+	getBAKE_RO_ID().select()
+	getBAKE_RO_ShadingNormal().select()
+	getBAKE_RO_Decals().select()
+	lx.eval('item.channel bakeItemRO$useUDIM false')
+
 try:
 	getIMG_Normal().select(replace=True)
 	lx.eval('texture.delete')
+	# Clean up any unused clips!
+	lx.eval('clip.purge')
 except:
 	pass
 
@@ -96,6 +110,7 @@ if askUDIMs() == "yes":
 	setBakeUDIMs()
 else:
 	createNormalsDefault()
+	setBakeNoUDIMs()
 
 # Clean up any unused clips!
 lx.eval('clip.purge')
