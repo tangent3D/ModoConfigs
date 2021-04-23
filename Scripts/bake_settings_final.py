@@ -6,7 +6,6 @@ getTEX_Curvature().select(replace=True)
 lx.eval('item.channel occlusion$rays 32')
 
 getBAKE_RO_ShadingNormal().select(replace=True)
-getBAKE_RO_ShadingNormal().select()
 getBAKE_RO_Curvature().select()
 getBAKE_RO_Seams().select()
 getBAKE_RO_Alpha().select()
