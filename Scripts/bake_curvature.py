@@ -19,7 +19,7 @@ lx.eval('select.drop item')
 
 lx.eval('select.subItem '+getBAKE_RO_Curvature().id+' set')
 
-lx.eval('bakeItem.bake true'
+lx.eval('bakeItem.bake true')
 
 lx.eval('shader.setVisible '+getTEX_Wireframe().id+' true')
 
