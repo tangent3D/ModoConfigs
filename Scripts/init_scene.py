@@ -2,6 +2,8 @@
 
 import modo
 
+lx.eval('select.drop item')
+
 # Create a new mesh container (Mesh_Decals)
 lx.eval('layer.new')
 lx.eval('tool.set prim.cube on 0')
@@ -263,8 +265,12 @@ lx.eval('select.vertexMap Texture txuv replace')
 lx.eval('vertMap.delete txuv')
 
 # Set render frame to 1:1 ratio
-lx.eval('render.res 0 1024')
-lx.eval('render.res 1 1024')
+lx.eval('render.res 0 2048')
+lx.eval('render.res 1 2048')
+
+# Set Environment invisible to camera
+modo.item.Item('Environment').select(replace=True)
+lx.eval('item.channel environment$visCam false')
 
 # Create locators so other scripts can identify the meshes in the scene
 lx.eval('item.create locator')
