@@ -19,13 +19,13 @@ getBAKE_RO_Alpha().select()
 getBAKE_RO_ID().select()
 
 try:
-	# remove selected src
+	# Remove selected items as sources
 	lx.eval('bakeItem.setAsSource 2 1 0')
 except:
 	pass
 
 try:
-	# add selected src
+	# Add selected items as sources
 	lx.eval('bakeItem.setAsSource 1 1 0')
 except:
 	pass
@@ -38,13 +38,13 @@ lx.eval('select.itemHierarchy')
 getBAKE_TEX_Normal().select()
 
 try:
-	# remove selected src
+	# Removed selected items as sources
 	lx.eval('bakeItem.setAsSource 2 0 0')
 except:
 	pass
 
 try:
-	# add selected src
+	# Add selected items as sources
 	lx.eval('bakeItem.setAsSource 1 0 0')
 except:
 	pass
@@ -69,13 +69,13 @@ getBAKE_RO_ID().select()
 getBAKE_RO_Decals().select()
 
 try:
-	# remove selected src
+	# Remove selected items as targets
 	lx.eval('bakeItem.setAsTarget 2 1 0')
 except:
 	pass
 
 try:
-	# add selected src
+	# Add selected items as targets
 	lx.eval('bakeItem.setAsTarget 1 1 0')
 except:
 	pass
@@ -91,13 +91,13 @@ getBAKE_TEX_Normal().select()
 lx.eval('bakeItem.texture '+getIMG_Normal().id+'')
 
 try:
-	# remove selected tgt
+	# Remove selected items as targets
 	lx.eval('bakeItem.setAsTarget 2 0 0')
 except:
 	pass
 
 try:
-	# add selected tgt
+	# Add selected items as targets
 	lx.eval('bakeItem.setAsTarget 1 0 0')
 except:
 	pass
@@ -114,13 +114,13 @@ lx.eval('poly.setMaterial Decals {0.0 0.0 0.0} 1.0 0.04 true false false')
 getBAKE_RO_Decals().select()
 
 try:
-	# remove selected src
+	# Remove selected items as sources
 	lx.eval('bakeItem.setAsSource 2 1 0')
 except:
 	pass
 
 try:
-	# add selected src
+	# Add selected items as sources
 	lx.eval('bakeItem.setAsSource 1 1 0')
 except:
 	pass
