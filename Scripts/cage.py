@@ -11,6 +11,7 @@ except:
 
 getBAKE_RO_ShadingNormal().select(replace=True)
 getBAKE_RO_Curvature().select()
+getBAKE_RO_AO().select()
 getBAKE_RO_Seams().select()
 getBAKE_RO_Alpha().select()
 getBAKE_RO_ID().select()

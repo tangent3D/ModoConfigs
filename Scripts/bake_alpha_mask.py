@@ -5,11 +5,8 @@ from definitions import *
 # Set bake sources and targets and corresponding materials 
 lx.eval('@set_sources_targets.py')
 
-# Set bake settings final for 2048*2px
-lx.eval('@bake_settings_final.py')
-
 # Explode to frame 1
-lx.eval('select.time 0.041667 0 0')
+lx.eval('@setframe1.lxm')
 
 lx.eval('shader.setVisible '+getTEX_Curvature().id+' false')
 
@@ -22,14 +19,13 @@ lx.eval('pref.value render.bakeBorder 0')
 
 lx.eval('bakeItem.bake true')
 
+# Restore edge bleed
 lx.eval('pref.value render.bakeBorder 16')
 
-# Restore bake settings to draft
-lx.eval('@bake_settings_draft.py')
-
+# Restore Curvature visibility
 lx.eval('shader.setVisible '+getTEX_Curvature().id+' true')
 
 # Un-explode to frame 0
-lx.eval('select.time 0 0 0')
+lx.eval('@setframe0.lxm')
 
 lx.eval('select.drop item')

@@ -43,7 +43,10 @@ def getRO_ShadingNormal():
 	return modo.item.Item('Shading Normal Output')
 
 def getRO_ID():
-	return modo.item.Item('Surface ID Output')	
+	return modo.item.Item('Surface ID Output')
+
+def getRO_AO():
+	return modo.item.Item('Ambient Occlusion Output')	
 
 def getTEX_Curvature():
 	return modo.item.Item('Curvature')
@@ -56,6 +59,9 @@ def getBAKE_RO_ShadingNormal():
 
 def getBAKE_RO_Curvature():
 	return modo.item.Item('Curvature Bake')
+
+def getBAKE_RO_AO():
+	return modo.item.Item('Ambient Occlusion Bake')
 
 def getBAKE_RO_Alpha():
 	return modo.item.Item('Alpha Mask Bake')

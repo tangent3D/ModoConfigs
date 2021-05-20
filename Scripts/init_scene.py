@@ -48,8 +48,8 @@ modo.item.Item('Mesh').select(replace=True)
 lx.eval('delete')
 
 # # Delete default Final Color Output
-modo.item.Item('Final Color Output').select(replace=True)
-lx.eval('delete')
+# modo.item.Item('Final Color Output').select(replace=True)
+# lx.eval('delete')
 
 # # Delete default Alpha Output
 modo.item.Item('Alpha Output').select(replace=True)
@@ -77,6 +77,12 @@ RO_ShadingNormal = modo.item.Item(item=None)
 lx.eval('shader.create renderOutput')
 lx.eval('shader.setEffect geo.surface')
 RO_ID = modo.item.Item(item=None)
+
+# Create the Ambient Occlusion Render Output
+# Create the Surface ID Render Output
+lx.eval('shader.create renderOutput')
+lx.eval('shader.setEffect occl.ambient')
+RO_AO = modo.item.Item(item=None)
 
 ### Creating texture layers ###
 
@@ -124,6 +130,12 @@ lx.eval('item.name "Curvature Bake"bakeItemRO')
 lx.eval('bakeItem.renderOutput '+RO_Diffuse.id+'')
 BAKE_RO_Curvature = modo.item.Item(item=None)
 
+# Create Ambient Occlusion Bake Item
+lx.eval('bakeItem.createOutputBake')
+lx.eval('item.name "Ambient Occlusion Bake"bakeItemRO')
+lx.eval('bakeItem.renderOutput '+RO_AO.id+'')
+BAKE_RO_AO = modo.item.Item(item=None)
+
 # Create Seams Bake Item
 lx.eval('bakeItem.createOutputBake')
 lx.eval('item.name "Seams Bake"bakeItemRO')
@@ -160,6 +172,7 @@ BAKE_TEX_Normal = modo.item.Item(item=None)
 
 BAKE_RO_ShadingNormal.select(replace=True)
 BAKE_RO_Curvature.select()
+BAKE_RO_AO.select()
 BAKE_RO_Seams.select()
 BAKE_RO_Alpha.select()
 BAKE_RO_ID.select()
@@ -170,8 +183,8 @@ lx.eval('item.channel bakeItemRO$hiddenSource true')
 lx.eval('item.channel bakeItemRO$hiddenOutput true')
 lx.eval('item.channel bakeItemRO$saveOutputFile true')
 lx.eval('item.channel bakeItemRO$distance 0.05')
-lx.eval('item.channel bakeItemRO$width 512')
-lx.eval('item.channel bakeItemRO$height 512')
+lx.eval('item.channel bakeItemRO$width 2048')
+lx.eval('item.channel bakeItemRO$height 2048')
 lx.eval('bakeItem.setUV Texture')
 
 BAKE_TEX_Normal.select(replace=True)
@@ -183,9 +196,11 @@ lx.eval('item.channel bakeItemTexture$saveOutputFile true')
 lx.eval('item.channel bakeItemTexture$distance 0.05')
 
 # Hide non-essential items
+lx.eval('shader.setVisible '+RO_AO.id+' false')
 lx.eval('shader.setVisible '+RO_ID.id+' false')
 lx.eval('shader.setVisible '+RO_ShadingNormal.id+' false')
 lx.eval('shader.setVisible '+RO_Alpha.id+' false')
+lx.eval('shader.setVisible '+RO_Diffuse.id+' false')
 
 ### Project organization ###
 
@@ -230,6 +245,9 @@ lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_World_Space_Norm
 BAKE_RO_Curvature.select(replace=True)
 lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Curvature"')
 
+BAKE_RO_AO.select(replace=True)
+lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Ambient_Occlusion"')
+
 BAKE_RO_Seams.select(replace=True)
 lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Seams"')
 
@@ -252,6 +270,7 @@ output_dir = lx.eval('dialog.result ?')
 # Set output directory on Render Output Bake Items
 BAKE_RO_Alpha.select(replace=True)
 BAKE_RO_Curvature.select()
+BAKE_RO_AO.select()
 BAKE_RO_Seams.select()
 BAKE_RO_ID.select()
 BAKE_RO_ShadingNormal.select()
