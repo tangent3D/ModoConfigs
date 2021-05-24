@@ -2,6 +2,9 @@
 
 from definitions import *
 
+# Clean UV maps from HI and Decal meshes
+lx.eval('@clean_uv_maps.py')
+
 lx.eval('select.drop item')
 
 ### Set HI Sources ###
