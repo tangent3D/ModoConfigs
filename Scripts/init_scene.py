@@ -93,6 +93,11 @@ lx.eval('item.channel occlusion$type curvature')
 lx.eval('item.channel occlusion$rays 1')
 lx.eval('item.channel occlusion$dist 0.1')
 #lx.eval('item.channel occlusion$sameSurf true')
+# Possible fix for artifacts appearing in Curvature bake
+# Remove if issues with Curvature map arise
+lx.eval('item.channel occlusion$bias 0.0')
+lx.eval('item.channel occlusion$gain 0.0')
+lx.eval('item.channel occlusion$alpha 1.735')
 TEX_Curvature = modo.item.Item(item=None)
 
 # Create Texture Layer Wireframe Texture
