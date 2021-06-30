@@ -97,7 +97,7 @@ lx.eval('item.channel occlusion$dist 0.1')
 # Remove if issues with Curvature map arise
 lx.eval('item.channel occlusion$bias 0.0')
 lx.eval('item.channel occlusion$gain 0.0')
-lx.eval('item.channel occlusion$alpha 1.735')
+lx.eval('item.channel occlusion$alpha2 1.735')
 TEX_Curvature = modo.item.Item(item=None)
 
 # Create Texture Layer Wireframe Texture
