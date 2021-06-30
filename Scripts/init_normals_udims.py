@@ -7,7 +7,7 @@ import modo
 
 def createNormalsDefault():
 	# Make a single normal map image and parent it in the MESH_LO material
-	lx.eval('clip.newStill "' +getOutputDir()+ '\\' +getProjectName()+ '_Normal_Base.png" x2048 RGB false false {0.0 0.0 0.0} PNG (none)')
+	lx.eval('clip.newStill "' +getOutputDir()+ '\\' +getProjectName()+ '_Normal_Base.png" x2048 RGB false false {0.0 0.0 0.0} PNG16 (none)')
 	lx.eval('select.subItem {' + getProjectName() + '_Normal_Base:videoStill001} set mediaClip')
 	lx.eval('texture.new clip:{' + getProjectName() +'_Normal_Base:videoStill001}')
 	getMASK_MAT_LO().select()
@@ -26,7 +26,7 @@ def createNormalsUDIMs():
 	getMASK_MAT_LO().select(replace=True)
 	# Dialog to inform user to select image clip folder
 	modo.dialogs.alert('Creating UDIMs','When the Choose a Clip window opens, select the imageFolder. First delete all Clips and imageFolders in the Clips data list to make this easier.',dtype='info')
-	lx.eval('clip.udimWizard "'+getOutputDir()+'" '+getProjectName()+'_Normal_Base '+rangeStart+' '+rangeEnd+' x2048 rgb false false format:PNG overwrite:true')
+	lx.eval('clip.udimWizard "'+getOutputDir()+'" '+getProjectName()+'_Normal_Base '+rangeStart+' '+rangeEnd+' x2048 rgb false false format:PNG16 overwrite:true')
 	lx.eval('shader.create imageMap 0')
 	# Set TS Normal image map folder effect to Normal while it's selected
 	lx.eval('item.channel textureLayer(txtrLocator)$projType uv')
