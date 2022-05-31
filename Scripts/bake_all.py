@@ -19,6 +19,6 @@ lx.eval('@bake_ID.py')
 
 lx.eval('@bake_ao.py')
 
-# lx.eval('@bake_decals.py')
+lx.eval('@bake_decals.py')
 
 lx.eval('select.drop item')
