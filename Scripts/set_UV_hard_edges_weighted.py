@@ -6,8 +6,8 @@ getMAT_LO().select(replace=True)
 lx.eval('material.smoothCrease false')
 lx.eval('material.smoothCrease hardedges:true')
 
-# Disable area weighting
-lx.eval('material.smoothWeight area false')
+# Set area weighting
+lx.eval('material.smoothWeight area true')
 
 # Before we set the hard edges, let's make sure to remove any existing Normal or Hard Edge vertex maps
 getMESH_LO().select(replace=True)
@@ -33,11 +33,5 @@ lx.eval('hardedge.setDefault uvisland')
 lx.eval('hardedge.setDefault soft:uvisland')
 lx.eval('hardedge.set soft')
 lx.eval('hardedge.set hard')
-
-# # Set the Vertex Normals
-# # Removed this in case I need to manually soften edges
-# getMESH_LO().select(replace=True)
-# lx.eval('select.itemHierarchy')
-# lx.eval('vertMap.normals "Vertex Normal" true 1.0 Texture false')
 
 lx.eval('select.drop item')

@@ -1,0 +1,5 @@
+#LXMacro#
+select.type item
+select.all
+unlock
+select.drop item
