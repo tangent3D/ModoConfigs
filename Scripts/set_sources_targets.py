@@ -62,7 +62,7 @@ getMESH_LO().select(replace=True)
 name = lx.eval('item.name ?')
 lx.eval('select.itemHierarchy')
 lx.eval('poly.setMaterial '+name+' {0.0 0.0 0.0} 1.0 2.0 true false false')
-# High contrast for normals debugging
+# High contrast material for normal map debugging
 getMAT_LO().select(replace=True)
 lx.eval('item.channel advancedMaterial$rough 1.0')
 
