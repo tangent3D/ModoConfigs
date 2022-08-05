@@ -5,14 +5,16 @@ from definitions import *
 # Clean UV maps from HI and Decal meshes
 lx.eval('@clean_uv_maps.py')
 
-lx.eval('select.drop item')
+# Clean all sources/targets
+lx.eval('@clean_sources_targets.py')
+
+# Assign HI, LO, Decals materials
+lx.eval('@set_materials.py')
 
 ### Set HI Sources ###
 
-# Assign RoundEdge material to HP mesh and all children
 getMESH_HI().select(replace=True)
 lx.eval('select.itemHierarchy')
-lx.eval('poly.setMaterial RoundEdge {1.0 1.0 1.0} 1.0 0.04 true false false')
 
 # Assign HI Sources to Render Output Bake Items
 getBAKE_RO_ShadingNormal().select()
@@ -34,8 +36,6 @@ try:
 except:
 	pass
 
-print ("set ro bake item sources")
-
 # Assign HI Sources to Texture Output Bake Items
 getMESH_HI().select(replace=True)
 lx.eval('select.itemHierarchy')
@@ -53,18 +53,11 @@ try:
 except:
 	pass
 
-print ("set texture bake item sources")
-
 ### Set LO Targets ###
 
 # Assign LO material to LO mesh and all children
 getMESH_LO().select(replace=True)
-name = lx.eval('item.name ?')
 lx.eval('select.itemHierarchy')
-lx.eval('poly.setMaterial '+name+' {0.0 0.0 0.0} 1.0 2.0 true false false')
-# High contrast material for normal map debugging
-getMAT_LO().select(replace=True)
-lx.eval('item.channel advancedMaterial$rough 1.0')
 
 # Assign LO + Decals Targets to Render Output Bake Items
 
@@ -88,8 +81,6 @@ try:
 except:
 	pass
 
-print("set ro bake item targets")
-
 # Assign LO Targets to Texture Output Bake Items
 
 getMESH_LO().select(replace=True)
@@ -110,14 +101,10 @@ try:
 except:
 	pass
 
-print("set texture bake item targets")
-
 ### Set Decals Sources ###
 
-# Assign Decals material to Decals mesh and all children
 getMESH_Decals().select(replace=True)
 lx.eval('select.itemHierarchy')
-lx.eval('poly.setMaterial Decals {0.0 0.0 0.0} 1.0 0.04 true false false')
 
 getBAKE_RO_Decals().select()
 
@@ -132,7 +119,5 @@ try:
 	lx.eval('bakeItem.setAsSource 1 1 0')
 except:
 	pass
-
-print("set decals render output bake item targets")
 
 lx.eval('select.drop item')

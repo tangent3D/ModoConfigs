@@ -14,3 +14,5 @@ try:
 	lx.eval('vertMap.delete txuv')
 except:
 	pass
+
+lx.eval('select.drop item')
