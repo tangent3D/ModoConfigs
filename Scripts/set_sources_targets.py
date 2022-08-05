@@ -59,7 +59,7 @@ except:
 getMESH_LO().select(replace=True)
 lx.eval('select.itemHierarchy')
 
-# Assign LO + Decals Targets to Render Output Bake Items
+# Assign LO Targets to Render Output Bake Items
 
 getBAKE_RO_ShadingNormal().select()
 getBAKE_RO_Seams().select()
