@@ -6,6 +6,7 @@ import modo
 # Creating normal maps and configuring the project for UDIMs
 
 def createNormalsDefault():
+	lx.eval('select.drop item')
 	# Make a single normal map image and parent it in the MESH_LO material
 	lx.eval('clip.newStill "' +getOutputDir()+ '\\' +getProjectName()+ '_Normal_Base.png" x2048 RGB false false {0.0 0.0 0.0} PNG16 (none)')
 	lx.eval('select.subItem {' + getProjectName() + '_Normal_Base:videoStill001} set mediaClip')
@@ -116,3 +117,6 @@ else:
 
 # Clean up any unused clips!
 lx.eval('clip.purge')
+
+# Hide normal map image
+lx.eval('shader.setVisible '+getIMG_Normal().id+' false')
