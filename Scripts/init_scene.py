@@ -40,6 +40,8 @@ lx.eval('item.channel advancedMaterial$smAngle 25.0')
 lx.eval('item.channel advancedMaterial$rndAngle 25.0')
 lx.eval('item.channel advancedMaterial$rndWidth 0.01')
 lx.eval('item.channel advancedMaterial$rndSame true')
+# RoundEdge material uses weighted normals
+lx.eval('material.smoothWeight area true')
 
 ### Cleaning up the default scene ###
 

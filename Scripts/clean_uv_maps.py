@@ -8,6 +8,7 @@ lx.eval('select.drop item')
 getMESH_HI().select(replace=True)
 getMESH_Decals().select()
 lx.eval('select.itemHierarchy')
+lx.eval('deformer.selectBaseMesh')
 
 try:
 	lx.eval('select.vertexMap Texture txuv add')
