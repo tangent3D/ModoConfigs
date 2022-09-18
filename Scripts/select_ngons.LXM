@@ -1,0 +1,4 @@
+#LXMacro#
+select.typeFrom item;pivot;center;edge;polygon;vertex;ptag true
+select.type polygon
+select.polygon add vertex b-spline 4
