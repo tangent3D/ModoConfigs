@@ -1,4 +1,5 @@
 #LXMacro#
 select.typeFrom vertex;edge;polygon;item;pivot;center;ptag false
+select.drop vertex
 select.type vertex
 select.vertex add poly more 4
