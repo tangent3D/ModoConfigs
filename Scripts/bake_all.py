@@ -19,7 +19,7 @@ lx.eval('@bake_seams.py')
 
 lx.eval('@bake_ID.py')
 
-lx.eval('@bake_ao.py')
+# lx.eval('@bake_ao.py')
 
 lx.eval('@bake_decals.py')
 

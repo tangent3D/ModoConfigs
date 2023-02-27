@@ -23,7 +23,7 @@ base = output_dir + '/'
 mesh = base + name + '.fbx'
 wsSuffix = '_World_Space_Normals'
 tsSuffix = '_Normal_Base'
-aoSuffix = '_Ambient_Occlusion'
+# aoSuffix = '_Ambient_Occlusion'
 idSuffix = '_ID'
 cuSuffix = '_Curvature'
 deSuffix = '_Decals_ID'
@@ -31,7 +31,7 @@ seSuffix = '_Seams'
 
 ws = base + name + wsSuffix
 ts = base + name + tsSuffix
-ao = base + name + aoSuffix
+# ao = base + name + aoSuffix
 id = base + name + idSuffix
 cu = base + name + cuSuffix
 de = base + name + deSuffix
@@ -61,11 +61,11 @@ def renameUDIM():
 			delExistent(dest)
 			os.rename(src, dest)
 
-		src = ao + '_' + str(i) + '.png'
-		if (os.path.exists (src)):
-			dest = base + str(i) + aoSuffix + '.png'
-			delExistent(dest)
-			os.rename(src, dest)
+		# src = ao + '_' + str(i) + '.png'
+		# if (os.path.exists (src)):
+		# 	dest = base + str(i) + aoSuffix + '.png'
+		# 	delExistent(dest)
+		# 	os.rename(src, dest)
 
 		src = id + '_' + str(i) + '.png'
 		if (os.path.exists (src)):
@@ -100,7 +100,7 @@ def open():
 			meshMapList = (meshMapList +
 				' --mesh-map ' + base + str(i) + '_World_Space_Normals.png' + 
 				' --mesh-map ' + base + str(i) + '_Normal_Base.tiff' +
-				' --mesh-map ' + base + str(i) + '_Ambient_Occlusion.png' +
+				# ' --mesh-map ' + base + str(i) + '_Ambient_Occlusion.png' +
 				' --mesh-map ' + base + str(i) + '_ID.png' +
 				' --mesh-map ' + base + str(i) + '_Curvature.png' +
 				' --mesh-map ' + base + str(i) + '_Decals_ID.png' +
@@ -110,7 +110,7 @@ def open():
 		meshMapList = (
 			' --mesh-map ' + ts + '.tiff' + # TS Normal Map
 			' --mesh-map ' + ws + '.png' +  # WS Normal Map
-			' --mesh-map ' + ao + '.png' +  # Ambient Occlusion
+			# ' --mesh-map ' + ao + '.png' +  # Ambient Occlusion
 			' --mesh-map ' + id + '.png' +  # Surface ID Map
 			' --mesh-map ' + cu + '.png' +  # Curvature Map
 			' --mesh-map ' + de + '.png' +  # Decals ID Map
