@@ -76,5 +76,5 @@ def getBAKE_RO_Seams():
 	return modo.item.Item('Seams Bake')
 
 def getOutputDir():
-	x = getBAKE_RO_Curvature().channel('outLocation').get()
-	return x
+	return getBAKE_RO_ShadingNormal().channel('outLocation').get()
+

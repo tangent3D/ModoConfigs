@@ -8,7 +8,7 @@ from definitions import *
 name = getProjectName()
 
 # Get bake item output directory
-output_dir = getBAKE_RO_ShadingNormal().channel('outLocation').get()
+output_dir = getOutputDir()
 
 # Check if project is using UDIM workflow
 if (getBAKE_RO_ShadingNormal().channel('useUDIM').get() == 1):
