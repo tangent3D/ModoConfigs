@@ -48,48 +48,49 @@ def delExistent(dest):
 # Rename UDIM bakes for compatibility with Substance Painter legacy UV Tile workflow
 # Only renames if files exist to support re-baking bake items
 def renameUDIM():
-	for i in range(1001, int(endUDIM+1), 1):
-		src = ws + '_' + str(i) + '.png'
-		if (os.path.exists (src)):
-			dest = base + str(i) + wsSuffix + '.png'
-			delExistent(dest)
-			os.rename(src, dest)
+	if (useUDIM == 'true'):
+		for i in range(1001, int(endUDIM+1), 1):
+			src = ws + '_' + str(i) + '.png'
+			if (os.path.exists (src)):
+				dest = base + str(i) + wsSuffix + '.png'
+				delExistent(dest)
+				os.rename(src, dest)
 
-		src = ts + '_' + str(i) + '.tiff'
-		if (os.path.exists (src)):
-			dest = base + str(i) + tsSuffix + '.tiff'
-			delExistent(dest)
-			os.rename(src, dest)
+			src = ts + '_' + str(i) + '.tiff'
+			if (os.path.exists (src)):
+				dest = base + str(i) + tsSuffix + '.tiff'
+				delExistent(dest)
+				os.rename(src, dest)
 
-		# src = ao + '_' + str(i) + '.png'
-		# if (os.path.exists (src)):
-		# 	dest = base + str(i) + aoSuffix + '.png'
-		# 	delExistent(dest)
-		# 	os.rename(src, dest)
+			# src = ao + '_' + str(i) + '.png'
+			# if (os.path.exists (src)):
+			# 	dest = base + str(i) + aoSuffix + '.png'
+			# 	delExistent(dest)
+			# 	os.rename(src, dest)
 
-		src = id + '_' + str(i) + '.png'
-		if (os.path.exists (src)):
-			dest = base + str(i) + idSuffix + '.png'
-			delExistent(dest)
-			os.rename(src, dest)
+			src = id + '_' + str(i) + '.png'
+			if (os.path.exists (src)):
+				dest = base + str(i) + idSuffix + '.png'
+				delExistent(dest)
+				os.rename(src, dest)
 
-		src = cu + '_' + str(i) + '.png'
-		if (os.path.exists (src)):
-			dest = base + str(i) + cuSuffix + '.png'
-			delExistent(dest)
-			os.rename(src, dest)
+			src = cu + '_' + str(i) + '.png'
+			if (os.path.exists (src)):
+				dest = base + str(i) + cuSuffix + '.png'
+				delExistent(dest)
+				os.rename(src, dest)
 
-		src = de + '_' + str(i) + '.png'
-		if (os.path.exists (src)):
-			dest = base + str(i) + deSuffix + '.png'
-			delExistent(dest)
-			os.rename(src, dest)
+			src = de + '_' + str(i) + '.png'
+			if (os.path.exists (src)):
+				dest = base + str(i) + deSuffix + '.png'
+				delExistent(dest)
+				os.rename(src, dest)
 
-		src = se + '_' + str(i) + '.png'
-		if (os.path.exists (src)):
-			dest = base + str(i) + seSuffix + '.png'
-			delExistent(dest)
-			os.rename(src, dest)
+			src = se + '_' + str(i) + '.png'
+			if (os.path.exists (src)):
+				dest = base + str(i) + seSuffix + '.png'
+				delExistent(dest)
+				os.rename(src, dest)
 
 def open():
 	if (useUDIM == 'true'):
