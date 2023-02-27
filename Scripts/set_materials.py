@@ -19,19 +19,6 @@ for item in modo.Scene().selected:
 		# RoundEdge material parameters
 		lx.eval('poly.setMaterial RoundEdge {1.0 1.0 1.0} 1.0 0.04 true false false')
 
-# Assign LO material to LO mesh and all children
-getMESH_LO().select(replace=True)
-name = lx.eval('item.name ?')
-lx.eval('select.itemHierarchy')
-
-lx.eval('deformer.selectBaseMesh')
-
-lx.eval('poly.setMaterial '+name+' {0.0 0.0 0.0} 1.0 2.0 true false false')
-# High contrast material for normal map debugging
-getMAT_LO().select(replace=True)
-lx.eval('item.channel advancedMaterial$rough 1.0')
-lx.eval('select.drop item')
-
 # Assign Decals material to Decals mesh and all children
 getMESH_Decals().select(replace=True)
 lx.eval('select.itemHierarchy')

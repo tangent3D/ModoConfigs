@@ -25,21 +25,3 @@ except:
 	pass
 
 lx.eval('select.drop item')
-
-# Remove all items as sources/targets from Texture Output Bake Items
-lx.eval('select.all')
-getBAKE_TEX_Normal().select()
-
-try:
-	# Remove selected items as sources
-	lx.eval('bakeItem.setAsSource 2 0 0')
-except:
-	pass
-
-try:
-	# Remove selected items as targets
-	lx.eval('bakeItem.setAsTarget 2 0 0')
-except:
-	pass
-
-lx.eval('select.drop item')

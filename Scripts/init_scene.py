@@ -2,6 +2,10 @@
 
 import modo
 
+# Delete default mesh
+modo.item.Item('Mesh').select(replace=True)
+lx.eval('delete')
+
 lx.eval('select.drop item')
 
 # Create a new mesh container (Mesh_Decals)
@@ -28,7 +32,7 @@ lx.eval('tool.set prim.cube on 0')
 lx.eval('tool.reset prim.cube')
 lx.eval('tool.apply')
 lx.eval('tool.set prim.cube off 0')
-lx.eval('item.name Mesh_LO')
+lx.eval('item.name Mesh')
 MESH_LO = modo.item.Item(item=None)
 
 ### Create RoundEdge material and assign to MESH_HI
@@ -44,10 +48,6 @@ lx.eval('item.channel advancedMaterial$rndSame true')
 lx.eval('material.smoothWeight area true')
 
 ### Cleaning up the default scene ###
-
-# Delete default mesh
-modo.item.Item('Mesh').select(replace=True)
-lx.eval('delete')
 
 # # Delete default Final Color Output
 # modo.item.Item('Final Color Output').select(replace=True)
@@ -88,7 +88,7 @@ RO_AO = modo.item.Item(item=None)
 
 ### Creating texture layers ###
 
-# Create Texture Layer Occlusion (Curvature) 
+# Create Texture Layer Occlusion (Curvature)
 lx.eval('shader.create occlusion')
 lx.eval('item.name Curvature occlusion')
 lx.eval('item.channel occlusion$type curvature')
@@ -167,14 +167,6 @@ lx.eval('item.name "Decals ID Bake"bakeItemRO')
 lx.eval('bakeItem.renderOutput '+RO_ID.id+'')
 BAKE_RO_Decals = modo.item.Item(item=None)
 
-### Creating Texture Bake Items ###
-
-# Create Tangent Space Normals Texture Bake Item
-lx.eval('bakeItem.createTextureBake')
-lx.eval('item.name "Tangent Space Normals Texture Bake"bakeItemTexture')
-lx.eval('item.channel bakeItemTexture$useNormalPreset true')
-BAKE_TEX_Normal = modo.item.Item(item=None)
-
 ### Configuring common bake settings on Bake Items ###
 
 BAKE_RO_ShadingNormal.select(replace=True)
@@ -194,13 +186,8 @@ lx.eval('item.channel bakeItemRO$width 2048')
 lx.eval('item.channel bakeItemRO$height 2048')
 lx.eval('bakeItem.setUV Texture')
 
-BAKE_TEX_Normal.select(replace=True)
-lx.eval('item.channel bakeItemTexture$bakeFrom true')
-lx.eval('item.channel bakeItemTexture$hiddenTarget true')
-lx.eval('item.channel bakeItemTexture$hiddenSource true')
-lx.eval('item.channel bakeItemTexture$hiddenOutput true')
-lx.eval('item.channel bakeItemTexture$saveOutputFile true')
-lx.eval('item.channel bakeItemTexture$distance 0.05')
+BAKE_RO_ShadingNormal.select(replace=True)
+lx.eval('bakeItem.format PNG16')
 
 # Hide non-essential items
 lx.eval('shader.setVisible '+RO_AO.id+' false')
@@ -208,81 +195,6 @@ lx.eval('shader.setVisible '+RO_ID.id+' false')
 lx.eval('shader.setVisible '+RO_ShadingNormal.id+' false')
 lx.eval('shader.setVisible '+RO_Alpha.id+' false')
 lx.eval('shader.setVisible '+RO_Diffuse.id+' false')
-
-### Project organization ###
-
-# Get project name from user
-lx.eval("user.defNew name:UserValueProjectName type:string life:momentary")
-lx.eval('user.def UserValueProjectName dialogname "Set project name"')
-lx.eval("user.def UserValueProjectName username {Name}")
-
-try:
-    lx.eval("?user.value UserValueProjectName")
-    userResponse = lx.eval("dialog.result ?")
-    
-except:
-    userResponse = lx.eval("dialog.result ?")
-    sys.exit()
-    
-projectName = lx.eval("user.value UserValueProjectName ?")
-
-lx.out('Project name:',projectName)
-
-# Rename Mesh_LO to match project name
-MESH_LO.select(replace=True)
-lx.eval('item.name "' + projectName + '"')
-
-# Rename MESH_HI to match project name
-MESH_HI.select(replace=True)
-lx.eval('item.name "' + projectName + '_HI"')
-
-# Rename MESH_Decals to match project name
-MESH_Decals.select(replace=True)
-lx.eval('item.name "' + projectName + '_Decals"')
-
-# Rename mesh material to match project name
-MASK_MAT_LO.select(replace=True)
-lx.eval("dialog.result ok")
-lx.eval('texture.name "' + projectName + '"')
-
-# Rename render output file names with project name + suffix
-BAKE_RO_ShadingNormal.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_World_Space_Normals"')
-
-BAKE_RO_Curvature.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Curvature"')
-
-BAKE_RO_AO.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Ambient_Occlusion"')
-
-BAKE_RO_Seams.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Seams"')
-
-BAKE_RO_ID.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_ID"')
-
-BAKE_RO_Alpha.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Mask"')
-
-BAKE_RO_Decals.select(replace=True)
-lx.eval('item.channel bakeItemRO$outPattern "' + projectName +'_Decals_ID"')
-
-# Set render output directory (usually project's 'bake' folder)
-lx.eval('dialog.setup dir')
-lx.eval('dialog.title "Set project bake directory"')
-lx.eval('dialog.result "D:\Dropbox"')
-lx.eval('dialog.open')
-output_dir = lx.eval('dialog.result ?')
-
-# Set output directory on Render Output Bake Items
-BAKE_RO_Alpha.select(replace=True)
-BAKE_RO_Curvature.select()
-BAKE_RO_AO.select()
-BAKE_RO_Seams.select()
-BAKE_RO_ID.select()
-BAKE_RO_ShadingNormal.select()
-BAKE_RO_Decals.select()
-lx.eval('item.channel outLocation "' + output_dir + '"')
 
 # Delete MESH_HI and MESH_Decals UV maps
 MESH_HI.select(replace=True)

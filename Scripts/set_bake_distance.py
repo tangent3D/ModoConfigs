@@ -10,11 +10,11 @@ lx.eval("user.def UserValue username {Bake distance (meters)}")
 try:
     lx.eval("?user.value UserValue")
     userResponse = lx.eval("dialog.result ?")
-    
+
 except:
     userResponse = lx.eval("dialog.result ?")
     sys.exit()
-    
+
 user_input = lx.eval("user.value UserValue ?")
 lx.out('Bake distance:',user_input)
 
@@ -28,7 +28,4 @@ getBAKE_RO_ID().select()
 getBAKE_RO_Decals().select()
 lx.eval('item.channel bakeItemRO$distance '+ user_input +'')
 
-# Set bake distance on texture bake items
-getBAKE_TEX_Normal().select(replace=True)
-lx.eval('item.channel bakeItemTexture$distance '+ user_input +'')
 lx.eval('select.drop item')

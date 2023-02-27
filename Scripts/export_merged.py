@@ -12,7 +12,10 @@ lx.eval('vertMap.normals "Vertex Normal" true 1.0 {} false')
 lx.eval('item.duplicate false locator false true')
 lx.eval('layer.mergeMeshes true')
 mergedMesh = modo.item.Item(item=None)
-lx.eval('export.selected 15 false false false')
+try:
+	lx.eval('export.selected 15 false false false')
+except:
+	pass
 # Select original scene
 modo.scene.Scene(scene=scene.scene)
 mergedMesh.select(replace=True)

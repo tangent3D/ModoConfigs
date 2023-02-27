@@ -24,7 +24,7 @@ def getMAT_LO():
 	y = modo.item.Item(''+x.name+' (Material)')
 	z = y.childrenByType('advancedMaterial')
 	return z[0]
-	
+
 def getMASK_MAT_RoundEdge():
 	return modo.item.Item('RoundEdge (Material)')
 
@@ -46,11 +46,11 @@ def getRO_ID():
 	return modo.item.Item('Surface ID Output')
 
 def getRO_AO():
-	return modo.item.Item('Ambient Occlusion Output')	
+	return modo.item.Item('Ambient Occlusion Output')
 
 def getTEX_Curvature():
 	return modo.item.Item('Curvature')
-							
+
 def getTEX_Wireframe():
 	return modo.item.Item('Wireframe Texture')
 
@@ -74,16 +74,6 @@ def getBAKE_RO_Decals():
 
 def getBAKE_RO_Seams():
 	return modo.item.Item('Seams Bake')
-
-def getBAKE_TEX_Normal():
-	return modo.item.Item('Tangent Space Normals Texture Bake')
-
-def getIMG_Normal():
-	# Get the TS normal image map layer
-	x = modo.item.Item('locator.LO').parent
-	y = modo.item.Item(''+x.name+' (Material)')
-	z = y.childAtIndex(1)
-	return z
 
 def getOutputDir():
 	x = getBAKE_RO_Curvature().channel('outLocation').get()

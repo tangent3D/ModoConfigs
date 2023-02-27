@@ -18,7 +18,4 @@ getBAKE_RO_ID().select()
 getBAKE_RO_Decals().select()
 lx.eval('bakeItem.setCage Cage render')
 
-getBAKE_TEX_Normal().select(replace=True)
-lx.eval('bakeItem.setCage Cage texture')
-
 lx.eval('select.drop item')

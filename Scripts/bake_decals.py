@@ -14,9 +14,9 @@ lx.eval('select.drop item')
 
 lx.eval('select.subItem '+getBAKE_RO_Decals().id+' set')
 
-# Set bake resolution to 4096x4096px
-lx.eval('item.channel bakeItemRO$width 4096')
-lx.eval('item.channel bakeItemRO$height 4096')
+# # Set bake resolution to 4096x4096px
+# lx.eval('item.channel bakeItemRO$width 4096')
+# lx.eval('item.channel bakeItemRO$height 4096')
 
 # Don't apply edge bleed to baked texture
 lx.eval('pref.value render.bakeBorder 0')

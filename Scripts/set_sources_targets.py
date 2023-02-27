@@ -36,30 +36,11 @@ try:
 except:
 	pass
 
-# Assign HI Sources to Texture Output Bake Items
-getMESH_HI().select(replace=True)
-lx.eval('select.itemHierarchy')
-getBAKE_TEX_Normal().select()
-
-try:
-	# Removed selected items as sources
-	lx.eval('bakeItem.setAsSource 2 0 0')
-except:
-	pass
-
-try:
-	# Add selected items as sources
-	lx.eval('bakeItem.setAsSource 1 0 0')
-except:
-	pass
-
 ### Set LO Targets ###
 
-# Assign LO material to LO mesh and all children
+# Assign LO Targets to Render Output Bake Items
 getMESH_LO().select(replace=True)
 lx.eval('select.itemHierarchy')
-
-# Assign LO Targets to Render Output Bake Items
 
 getBAKE_RO_ShadingNormal().select()
 getBAKE_RO_Seams().select()
@@ -78,26 +59,6 @@ except:
 try:
 	# Add selected items as targets
 	lx.eval('bakeItem.setAsTarget 1 1 0')
-except:
-	pass
-
-# Assign LO Targets to Texture Output Bake Items
-
-getMESH_LO().select(replace=True)
-lx.eval('select.itemHierarchy')
-
-getBAKE_TEX_Normal().select()
-lx.eval('bakeItem.texture '+getIMG_Normal().id+'')
-
-try:
-	# Remove selected items as targets
-	lx.eval('bakeItem.setAsTarget 2 0 0')
-except:
-	pass
-
-try:
-	# Add selected items as targets
-	lx.eval('bakeItem.setAsTarget 1 0 0')
 except:
 	pass
 
