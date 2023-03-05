@@ -5,6 +5,7 @@ from definitions import *
 # Don't display deformers
 lx.eval('view3d.enableDeformers false')
 
+lx.eval('select.type item')
 lx.eval('unhide')
 getMESH_HI().select(replace=True)
 getMESH_Decals().select()
