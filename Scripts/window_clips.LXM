@@ -1,3 +1,0 @@
-#LXMacro#
-layout.create width:400 height:400 class:datalists
-viewport.restore {} false clip

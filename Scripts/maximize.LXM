@@ -1,4 +1,0 @@
-#LXMacro#
-select.drop item
-select.viewport viewport:0 frame:0
-viewport.maximize
