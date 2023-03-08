@@ -154,7 +154,7 @@ def export(nameBase, boolNoMaterials, boolCollada):
 
 	# Convert exported FBX to Collada if specified
 	if boolCollada == True:
-		os.popen("MeshSmith -i {}.fbx -o {}.dae -f collada".format(path, path))
+		os.popen("MeshSmith -i {0}.fbx -o {0}.dae -f collada".format(path))
 
 	lx.eval('select.drop item')
 
