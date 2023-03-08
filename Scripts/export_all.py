@@ -99,7 +99,7 @@ def process(source, boolSeparate, boolMerge, boolNoMaterials, boolCollada):
 			# Get mesh item name from child mesh item
 			# Warning: strips 4 characters from end to account for ' (n)' suffix on duplicate items!
 			nameMesh = lx.eval('query layerservice layer.name ? {}'.format(child))[:-4]
-			# Don't bother exporting child meshes with no materials
+			# Don't bother exporting child meshes with no materials for now
 			export(nameMesh, False, boolCollada)
 			# Merge all submeshes of children, if present, and export merged meshes if specified
 			if boolMerge == True:
@@ -108,12 +108,11 @@ def process(source, boolSeparate, boolMerge, boolNoMaterials, boolCollada):
 					lx.eval('select.subItem {} set mesh'.format(child))
 					# Proceed if submeshes present
 					if (lx.eval('query layerservice layer.childCount ? {}'.format(child))) > 0:
-						print('hi')	
 						nameMesh = lx.eval('query layerservice layer.name ? {}'.format(child))[:-4]
 						lx.eval('select.itemHierarchy')
 						lx.eval('layer.mergeMeshes true')
 						lx.eval('item.name {} mesh'.format(nameMesh))
-						# Again, don't bother exporting merged submeshes with no materials
+						# Again, don't bother exporting merged submeshes with no materials for now
 						export('{}_Merged'.format(nameMesh), False, boolCollada)
 
 	# Export merged hierarchy
