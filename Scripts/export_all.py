@@ -60,9 +60,9 @@ def main():
 	process(getMESH_Decals(), False, False, False, False)
 
 	# Restore user's FBX export settings
-	lx.eval('user.value sceneio.fbx.save.exportType %s' % fbx_export_setting)
-	lx.eval('user.value sceneio.fbx.save.units %s' % fbx_units_setting)
-	lx.eval('user.value sceneio.fbx.save.materials %s' % fbx_materials_setting)
+	lx.eval('user.value sceneio.fbx.save.exportType {}'.format(fbx_export_setting))
+	lx.eval('user.value sceneio.fbx.save.units {}'.format(fbx_units_setting))
+	lx.eval('user.value sceneio.fbx.save.materials {}'.format(fbx_materials_setting))
 
 # === FUNCTION DEFINITIONS ===
 
@@ -138,7 +138,7 @@ def export(nameBase, boolNoMaterials, boolCollada):
 
 	# Export mesh item with hierarchy
 	path = os.path.join (lx.eval('user.value output_dir ?'), nameBase)
-	lx.eval('!scene.saveAs "%s" fbx true' % path)
+	lx.eval('!scene.saveAs "{}" fbx true'.format(path))
 
 	# Export without materials as separate file if specified
 	if boolNoMaterials == True:
@@ -148,7 +148,7 @@ def export(nameBase, boolNoMaterials, boolCollada):
 		# Disable exporting FBX materials
 		lx.eval('user.value sceneio.fbx.save.materials false')
 		path = os.path.join (lx.eval('user.value output_dir ?'), '{}_NoMats'.format(nameBase))
-		lx.eval('!scene.saveAs "%s" fbx true' % path)
+		lx.eval('!scene.saveAs "{}" fbx true'.format(path))
 		# Reenable exporting FBX materials
 		lx.eval('user.value sceneio.fbx.save.materials true')
 
