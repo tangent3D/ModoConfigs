@@ -80,7 +80,7 @@ def process(source, boolSeparate, boolMerge, boolNoMaterials, boolCollada):
 	lx.eval('select.itemHierarchy')
 	freeze()
 
-	# Export all child hierarchies together (excludes child locator)
+	# Export all children and hierarchy (excludes child locator)
 	for child in children:
 		# Add mesh item to selection
 		lx.eval('select.subItem {} add mesh'.format(child))
