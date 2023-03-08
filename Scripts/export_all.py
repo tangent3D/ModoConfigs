@@ -144,17 +144,18 @@ def export(nameBase, boolNoMaterials, boolCollada):
 	if boolNoMaterials == True:
 		# Reselect original mesh item to be exported
 		modo.item.Item(mesh).select(replace=True)
-		#lx.eval('select.subItem {} set mesh'.format(mesh))
 		# Disable exporting FBX materials
 		lx.eval('user.value sceneio.fbx.save.materials false')
-		path = os.path.join (lx.eval('user.value output_dir ?'), '{}_NoMats'.format(nameBase))
-		lx.eval('!scene.saveAs "{}" fbx true'.format(path))
+		pathNoMats = os.path.join (lx.eval('user.value output_dir ?'), '{}_NoMats'.format(nameBase))
+		lx.eval('!scene.saveAs "{}" fbx true'.format(pathNoMats))
 		# Reenable exporting FBX materials
 		lx.eval('user.value sceneio.fbx.save.materials true')
 
 	# Convert exported FBX to Collada if specified
 	if boolCollada == True:
 		os.popen("MeshSmith -i {0}.fbx -o {0}.dae -f collada".format(path))
+		if boolNoMaterials == True:
+			os.popen("MeshSmith -i {0}.fbx -o {0}.dae -f collada".format(pathNoMats))
 
 	lx.eval('select.drop item')
 
