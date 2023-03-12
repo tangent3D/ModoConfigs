@@ -2,13 +2,6 @@
 
 from definitions import *
 
-getMAT_LO().select(replace=True)
-lx.eval('material.smoothCrease false')
-lx.eval('material.smoothCrease hardedges:true')
-
-# Disable area weighting
-lx.eval('material.smoothWeight area false')
-
 # Before we set the hard edges, let's make sure to remove any existing Normal or Hard Edge vertex maps
 getMESH_LO().select(replace=True)
 lx.eval('select.itemHierarchy')
