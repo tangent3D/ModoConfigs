@@ -48,16 +48,17 @@ def main():
 
 	# Export low poly
 	process(getMESH_LO(), \
+		'_low', \
 		lx.eval('user.value exportSeparate ?'), \
 		lx.eval('user.value exportMerge ?'), \
 		lx.eval('user.value exportNoMaterials ?'), \
 		lx.eval('user.value exportCollada ?'))
 
 	# Export high poly
-	process(getMESH_HI(), False, False, False, False)
+	process(getMESH_HI(), '_high', False, False, False, False)
 
 	# Export decals
-	process(getMESH_Decals(), False, False, False, False)
+	process(getMESH_Decals(), '_high', False, False, False, False)
 
 	# Restore user's FBX export settings
 	lx.eval('user.value sceneio.fbx.save.exportType {}'.format(fbx_export_setting))
@@ -67,7 +68,7 @@ def main():
 # === FUNCTION DEFINITIONS ===
 
 # Process and export selection according to parameters
-def process(source, boolSeparate, boolMerge, boolNoMaterials, boolCollada):
+def process(source, suffix, boolSeparate, boolMerge, boolNoMaterials, boolCollada):
 	# Duplicate hiearchy to new item
 	nameSource = source.name
 	source.select(replace=True)
@@ -79,8 +80,17 @@ def process(source, boolSeparate, boolMerge, boolNoMaterials, boolCollada):
 	# Freeze all geometry, normals, etc.
 	lx.eval('select.itemHierarchy')
 	freeze()
+	# Fall through
+
+	# Rename entire hierarchy with suffix (e.g. '_low')
+	hierarchy = lx.evalN('query layerservice layer.id ? fg')
+	for child in hierarchy:
+		lx.eval('select.subItem {} replace mesh'.format(child))
+		name = lx.eval('query layerservice layer.name ? main')[:-4] + suffix
+		lx.eval('item.name {} mesh'.format(name))
 
 	# Export all children and hierarchy (excludes child locator)
+	lx.eval('select.drop item')
 	for child in children:
 		# Add mesh item to selection
 		lx.eval('select.subItem {} add mesh'.format(child))
@@ -111,7 +121,7 @@ def process(source, boolSeparate, boolMerge, boolNoMaterials, boolCollada):
 						nameMesh = lx.eval('query layerservice layer.name ? {}'.format(child))[:-4]
 						lx.eval('select.itemHierarchy')
 						lx.eval('layer.mergeMeshes true')
-						lx.eval('item.name {} mesh'.format(nameMesh))
+						lx.eval('item.name {} mesh'.format(nameMesh + '_merged'))
 						# Again, don't bother exporting merged submeshes with no materials for now
 						export('{}_Merged'.format(nameMesh), False, boolCollada)
 
@@ -124,7 +134,7 @@ def process(source, boolSeparate, boolMerge, boolNoMaterials, boolCollada):
 		# Merge meshes
 		lx.eval('layer.mergeMeshes true')
 		# Rename merged mesh to name of former parent
-		lx.eval('item.name {} mesh'.format(nameSource))
+		lx.eval('item.name {} mesh'.format(nameSource + '_merged'))
 		# Export merged mesh
 		export('{}_Merged'.format(nameSource), boolNoMaterials, boolCollada)
 
