@@ -152,8 +152,6 @@ def export(nameBase, boolNoMaterials, boolCollada):
 
 	# Export without materials as separate file if specified
 	if boolNoMaterials == True:
-		# Reselect original mesh item to be exported
-		modo.item.Item(mesh).select(replace=True)
 		# Disable exporting FBX materials
 		lx.eval('user.value sceneio.fbx.save.materials false')
 		pathNoMats = os.path.join (lx.eval('user.value output_dir ?'), '{}_NoMats'.format(nameBase))
