@@ -1,5 +1,7 @@
 # python
 
+import modo
+import lx
 from definitions import *
 
 def showLow():
@@ -11,6 +13,7 @@ def showLow():
 	getMESH_LO().select(replace=True)
 	lx.eval('select.itemHierarchy')
 	lx.eval('hide.unsel')
+	lx.eval('@select_base_mesh.py')
 	lx.eval('select.vertexMap Texture txuv add')
 
 def showHigh():
@@ -21,7 +24,7 @@ def showHigh():
 	lx.eval('unhide')
 	getMESH_HI().select(replace=True)
 	lx.eval('select.itemHierarchy')
-	lx.eval('deformer.selectBaseMesh')
+	lx.eval('@select_base_mesh.py')
 	lx.eval('hide.unsel')
 
 def showHighDeformers():
@@ -43,7 +46,7 @@ def showHighLow():
 	getMESH_HI().select(replace=True)
 	getMESH_LO().select()
 	lx.eval('select.itemHierarchy')
-	lx.eval('deformer.selectBaseMesh')
+	lx.eval('@select_base_mesh.py')
 	lx.eval('hide.unsel')
 
 def showDecals():
@@ -65,7 +68,7 @@ def showHighDecals():
 	getMESH_HI().select(replace=True)
 	getMESH_Decals().select()
 	lx.eval('select.itemHierarchy')
-	lx.eval('deformer.selectBaseMesh')
+	lx.eval('@select_base_mesh.py')
 	lx.eval('hide.unsel')
 	getMESH_Decals().select()
 
@@ -79,7 +82,7 @@ def showAll():
 	getMESH_Decals().select()
 	getMESH_LO().select()
 	lx.eval('select.itemHierarchy')
-	lx.eval('deformer.selectBaseMesh')
+	lx.eval('@select_base_mesh.py')
 	lx.eval('hide.unsel')
 
 # Redefine user value if undefined or if specified

@@ -45,14 +45,20 @@ def main():
 	lx.eval('user.value sceneio.fbx.save.units m')
 	# Set FBX export materials to 'true'
 	lx.eval('user.value sceneio.fbx.save.materials true')
+	
+	# Attempt to export LODs
+	# FIXME: avoid exporting LODs if mesh ops aren't in scene
+	try:
+		exportLOD('LOD1')
+		exportLOD('LOD2')
+		exportLOD('LOD3')
+	except:
+		pass
 
 	# Export low poly
 	process(getMESH_LO(), \
 		'_low', \
-		lx.eval('user.value exportSeparate ?'), \
-		lx.eval('user.value exportMerge ?'), \
-		lx.eval('user.value exportNoMaterials ?'), \
-		lx.eval('user.value exportCollada ?'))
+		lx.eval('user.value exportSeparate ?'), True, True, True)
 
 	# Export high poly
 	process(getMESH_HI(), '_high', False, False, False, False)
@@ -66,6 +72,35 @@ def main():
 	lx.eval('user.value sceneio.fbx.save.materials {}'.format(fbx_materials_setting))
 
 # === FUNCTION DEFINITIONS ===
+
+def exportLOD(lodLevel):
+	# set LOD1
+	lx.eval('@lod.py ' + lodLevel)
+	
+	nameSource = getMESH_LO().name
+	getMESH_LO().select(replace=True)
+	lx.eval('item.duplicate false locator true true')
+	parent = modo.item.Item(item=None)
+	children = lx.evalN('query layerservice layer.children ? main')
+	lx.eval('select.itemHierarchy')
+	freeze()
+	lx.eval('select.drop item')
+	
+	for child in children:
+		lx.eval('select.subItem {} add mesh'.format(child))
+	lx.eval('layer.mergeMeshes true')
+	lx.eval('item.name {} mesh'.format(nameSource))
+	
+	mesh = lx.eval('query layerservice layer.name ?')
+	
+	# export Collada
+	path = os.path.join (lx.eval('user.value output_dir ?'), nameSource + '_Merged_' + lodLevel + '.dae')
+	lx.eval('export.selected 5 false false false "{}"'.format(path))
+	
+	delete(parent)
+	lx.eval('select.drop item')
+	
+	lx.eval('@lod.py disable')
 
 # Process and export selection according to parameters
 def process(source, suffix, boolSeparate, boolMerge, boolNoMaterials, boolCollada):
@@ -146,9 +181,14 @@ def export(nameBase, boolNoMaterials, boolCollada):
 	# Store ID of mesh item to be exported
 	mesh = lx.eval('query layerservice layer.name ?')
 
-	# Export mesh item with hierarchy
+	# Export FBX 
 	path = os.path.join (lx.eval('user.value output_dir ?'), nameBase)
 	lx.eval('!scene.saveAs "{}" fbx true'.format(path))
+	
+	if boolCollada == True:
+		# Export Collada
+		path = os.path.join (lx.eval('user.value output_dir ?'), nameBase + '.dae')
+		lx.eval('export.selected 5 false false false "{}"'.format(path))
 
 	# Export without materials as separate file if specified
 	if boolNoMaterials == True:
@@ -158,12 +198,6 @@ def export(nameBase, boolNoMaterials, boolCollada):
 		lx.eval('!scene.saveAs "{}" fbx true'.format(pathNoMats))
 		# Reenable exporting FBX materials
 		lx.eval('user.value sceneio.fbx.save.materials true')
-
-	# Convert exported FBX to Collada if specified
-	if boolCollada == True:
-		os.popen("MeshSmith -i {0}.fbx -o {0}.dae -f collada".format(path))
-		if boolNoMaterials == True:
-			os.popen("MeshSmith -i {0}.fbx -o {0}.dae -f collada".format(pathNoMats))
 
 	lx.eval('select.drop item')
 
