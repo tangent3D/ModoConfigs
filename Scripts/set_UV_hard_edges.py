@@ -5,6 +5,9 @@ from definitions import *
 # Before we set the hard edges, let's make sure to remove any existing Normal or Hard Edge vertex maps
 getMESH_LO().select(replace=True)
 lx.eval('select.itemHierarchy')
+# Fix to try to select base meshes
+lx.eval('@select_base_mesh.py')
+modo.Scene().select('locator.LO', False)
 
 try:
 	lx.eval('select.vertexMap "Hard Edge" hard replace')
@@ -21,6 +24,9 @@ except:
 # Define the new hard edges
 getMESH_LO().select(replace=True)
 lx.eval('select.itemHierarchy')
+# Fix to try to select base meshes
+lx.eval('@select_base_mesh.py')
+modo.Scene().select('locator.LO', False)
 lx.eval('select.vertexMap Texture txuv replace')
 lx.eval('hardedge.setDefault uvisland')
 lx.eval('hardedge.setDefault soft:uvisland')
@@ -28,3 +34,4 @@ lx.eval('hardedge.set soft')
 lx.eval('hardedge.set hard')
 
 lx.eval('select.drop item')
+
