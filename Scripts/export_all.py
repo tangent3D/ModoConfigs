@@ -141,10 +141,9 @@ def process(source, suffix, boolSeparate, boolMerge, boolNoMaterials, boolCollad
 			lx.eval ('transform.channel pos.Y 0.0')
 			lx.eval ('transform.channel pos.Z 0.0')
 			# Get mesh item name from child mesh item
-			# Warning: strips 4 characters from end to account for ' (n)' suffix on duplicate items!
-			nameMesh = lx.eval('query layerservice layer.name ? {}'.format(child))[:-4]
-			# Don't bother exporting child meshes with no materials for now
-			export(nameMesh, False, boolCollada)
+			nameMesh = lx.eval('query layerservice layer.name ? {}'.format(child))
+			# Strip item name to before trailing double underscore (assumes they are present)
+			export(nameMesh.split('__')[0], False, boolCollada)
 			# Merge all submeshes of children, if present, and export merged meshes if specified
 			if boolMerge == True:
 				for child in children:
